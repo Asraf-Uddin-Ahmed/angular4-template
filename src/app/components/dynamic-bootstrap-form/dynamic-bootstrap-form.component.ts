@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import {
   DynamicFormService,
@@ -18,10 +18,10 @@ export class DynamicBootstrapFormComponent implements OnInit {
 
   @Input() formModel: DynamicFormControlModel[];
 
-  formGroup: FormGroup;
+  @Output() actionSubmit = new EventEmitter();
+  @Output() actionCancel = new EventEmitter();
 
-  exampleControl: FormControl;
-  exampleModel: DynamicInputModel;
+  formGroup: FormGroup;
 
   arrayControl: FormArray;
   arrayModel: DynamicFormArrayModel;
@@ -31,9 +31,6 @@ export class DynamicBootstrapFormComponent implements OnInit {
   ngOnInit() {
 
     this.formGroup = this.formService.createFormGroup(this.formModel);
-
-    this.exampleControl = this.formGroup.get('bootstrapFormGroup1').get('bootstrapInput') as FormControl;
-    this.exampleModel = this.formService.findById('bootstrapInput', this.formModel) as DynamicInputModel;
 
     this.arrayControl = this.formGroup.get('bootstrapFormGroup2').get('bootstrapFormArray') as FormArray;
     this.arrayModel = this.formService.findById('bootstrapFormArray', this.formModel) as DynamicFormArrayModel;
@@ -60,30 +57,6 @@ export class DynamicBootstrapFormComponent implements OnInit {
     this.formService.clearFormArray(this.arrayControl, this.arrayModel);
   }
 
-  test() {
-    // this.exampleModel.disabledUpdates.next(!this.exampleModel.disabled);
-    // this.exampleModel.valueUpdates.next("Hello Hello");
-    // console.log(JSON.stringify(this.exampleModel));
-    // this.arrayModel.get(1).group[0].valueUpdates.next("This is just a test");
-    // this.formService.moveFormArrayGroup(2, -1, this.arrayControl, this.arrayModel);
-    /*
-    this.formService.addFormGroupControl(
-        this.formGroup,
-        this.formModel,
-        new DynamicFormGroupModel({
-            id: "bootstrapFormGroup3",
-            group: [new DynamicInputModel({id: "newInput"})]
-        })
-    );
-    this.formService.addFormGroupControl(
-        this.formGroup.get("bootstrapFormGroup3") as FormGroup,
-        this.formModel[2] as DynamicFormGroupModel,
-        new DynamicInputModel({id: "newInput"})
-    );
-    */
-    // this.exampleModel.add({label: "Option 5", value: "option-5"});
-  }
-
   onBlur($event) {
     console.log(`BLUR event on ${$event.model.id}: `, $event);
   }
@@ -94,5 +67,12 @@ export class DynamicBootstrapFormComponent implements OnInit {
 
   onFocus($event) {
     console.log(`FOCUS event on ${$event.model.id}: `, $event);
+  }
+
+  submitForm() {
+    this.actionSubmit.emit(this.formGroup);
+  }
+  cancelForm() {
+    this.actionCancel.emit();
   }
 }
