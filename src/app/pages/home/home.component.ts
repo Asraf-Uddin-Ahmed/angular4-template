@@ -1,3 +1,4 @@
+import { BOOTSTRAP_SAMPLE_FORM_MODEL } from './../../components/dynamic-bootstrap-form/bootstrap-sample-form.model';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,8 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  model = BOOTSTRAP_SAMPLE_FORM_MODEL;
 
+  constructor() { }
   ngOnInit() {
   }
 
