@@ -1,29 +1,29 @@
 <!--link rel="stylesheet" href="https://unpkg.com/ngx-bootstrap/datepicker/bs-datepicker.css"-->
 
 <div class="overflow-hidden content-margin container-fluid" style="width: 50%;">
-  
-    <form class="form-horizontal" [formGroup]="formGroup" (ngSubmit)="submitForm()">
-  
-      <dynamic-bootstrap-form [model]="formModel" [group]="formGroup" (dfBlur)="onBlur($event)" (dfChange)="onChange($event)" (dfFocus)="onFocus($event)">
-  
-        <ng-template modelId="bootstrapFormArray" let-context="context" let-index="index">
-  
-          <div class="col-sm-4">
-  
-            <button type="button" class="btn btn-danger btn-xs rounded" (click)="dynamicFormArrayModelHelper.remove(index)">x</button>
-            <button type="button" class="btn btn-default btn-xs rounded" (click)="dynamicFormArrayModelHelper.move(index, -1)">&#9650;</button>
-            <button type="button" class="btn btn-default btn-xs rounded" (click)="dynamicFormArrayModelHelper.move(index, 1)">&#9660;</button>
-            <button type="button" class="btn btn-success btn-xs rounded" (click)="dynamicFormArrayModelHelper.insert(index + 1)">+</button>
-  
-          </div>
-  
-        </ng-template>
-  
-      </dynamic-bootstrap-form>
-  
-      <button type="submit" class="btn btn-success rounded">Submit</button>
-      <button type="button" class="btn btn-danger rounded" (click)="cancelForm()">Cancel</button>
-  
-    </form>
-  
-  </div>
+
+  <form class="form-horizontal" [formGroup]="formGroup" (ngSubmit)="submitForm()">
+
+    <dynamic-bootstrap-form [model]="formModel" [group]="formGroup" (dfBlur)="onBlur($event)" (dfChange)="onChange($event)" (dfFocus)="onFocus($event)">
+
+      <ng-template modelType="ARRAY" let-context="context" let-index="index">
+
+        <div class="col-sm-4">
+
+          <button type="button" class="btn btn-danger btn-xs rounded" (click)="dynamicFormArrayModelHelpers[context.id].remove(index)">x</button>
+          <button type="button" class="btn btn-default btn-xs rounded" (click)="dynamicFormArrayModelHelpers[context.id].move(index, -1)">&#9650;</button>
+          <button type="button" class="btn btn-default btn-xs rounded" (click)="dynamicFormArrayModelHelpers[context.id].move(index, 1)">&#9660;</button>
+          <button type="button" class="btn btn-success btn-xs rounded" (click)="dynamicFormArrayModelHelpers[context.id].insert(index + 1)">+</button>
+
+        </div>
+
+      </ng-template>
+
+    </dynamic-bootstrap-form>
+
+    <button type="submit" class="btn btn-success rounded">Submit</button>
+    <button type="button" class="btn btn-danger rounded" (click)="cancelForm()">Cancel</button>
+
+  </form>
+
+</div>

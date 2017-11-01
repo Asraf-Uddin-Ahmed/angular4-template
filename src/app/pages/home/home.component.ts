@@ -269,6 +269,38 @@ export class HomeComponent implements OnInit {
               label: 'col-sm-3'
             }
           }
+        ),
+        new DynamicFormArrayModel(
+          {
+            id: 'bootstrapFormArray2',
+            initialCount: 3,
+            label: 'Form Array 2',
+            groupFactory: () => {
+              return [
+                new DynamicInputModel(
+                  {
+                    id: 'bootstrapArrayGroupInput',
+                    placeholder: 'example array group input'
+                  },
+                  {
+                    grid: {
+                      container: 'col-sm-8'
+                    }
+                  }
+                )
+              ];
+            }
+          },
+          {
+            element: {
+              container: 'form-group form-array',
+              label: 'control-label'
+            },
+            grid: {
+              control: 'col-sm-9',
+              label: 'col-sm-3'
+            }
+          }
         )]
     })
 
