@@ -6,6 +6,7 @@ import {
   DynamicFormArrayModel,
   DynamicInputModel
 } from '@ng-dynamic-forms/core';
+import { DynamicFormArrayModelHelper } from './dynamic-form-array-model-helper';
 
 @Component({
   moduleId: module.id,
@@ -23,8 +24,7 @@ export class DynamicBootstrapFormComponent implements OnInit {
 
   formGroup: FormGroup;
 
-  arrayControl: FormArray;
-  arrayModel: DynamicFormArrayModel;
+  private dynamicFormArrayModelHelper: DynamicFormArrayModelHelper;
 
   constructor(private formService: DynamicFormService) { }
 
@@ -32,39 +32,18 @@ export class DynamicBootstrapFormComponent implements OnInit {
 
     this.formGroup = this.formService.createFormGroup(this.formModel);
 
-    this.arrayControl = this.formGroup.get('bootstrapFormGroup2').get('bootstrapFormArray') as FormArray;
-    this.arrayModel = this.formService.findById('bootstrapFormArray', this.formModel) as DynamicFormArrayModel;
-  }
+    const formArray = this.formGroup.get('bootstrapFormGroup2').get('bootstrapFormArray') as FormArray;
+    const dynamicFormArrayModel = this.formService.findById('bootstrapFormArray', this.formModel) as DynamicFormArrayModel;
+    this.dynamicFormArrayModelHelper = new DynamicFormArrayModelHelper(this.formService, formArray, dynamicFormArrayModel);
 
-  add() {
-    this.formService.addFormArrayGroup(this.arrayControl, this.arrayModel);
-  }
-
-  insert(context: DynamicFormArrayModel, index: number) {
-    this.formService.insertFormArrayGroup(index, this.arrayControl, context);
-    console.log(this.formModel);
-  }
-
-  remove(context: DynamicFormArrayModel, index: number) {
-    this.formService.removeFormArrayGroup(index, this.arrayControl, context);
-  }
-
-  move(context: DynamicFormArrayModel, index: number, step: number) {
-    this.formService.moveFormArrayGroup(index, step, this.arrayControl, context);
-  }
-
-  clear() {
-    this.formService.clearFormArray(this.arrayControl, this.arrayModel);
   }
 
   onBlur($event) {
     console.log(`BLUR event on ${$event.model.id}: `, $event);
   }
-
   onChange($event) {
     console.log(`CHANGE event on ${$event.model.id}: `, $event);
   }
-
   onFocus($event) {
     console.log(`FOCUS event on ${$event.model.id}: `, $event);
   }
