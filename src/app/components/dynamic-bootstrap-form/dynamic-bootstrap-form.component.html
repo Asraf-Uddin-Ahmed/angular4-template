@@ -4,7 +4,8 @@
 
   <form class="form-horizontal" [formGroup]="formGroup" (ngSubmit)="submitForm()">
 
-    <dynamic-bootstrap-form [model]="formModel" [group]="formGroup" (dfBlur)="onBlur($event)" (dfChange)="onChange($event)" (dfFocus)="onFocus($event)">
+    <dynamic-bootstrap-form [model]="dynamicFormControlModel" [group]="formGroup" (dfBlur)="onBlur($event)" (dfChange)="onChange($event)"
+      (dfFocus)="onFocus($event)">
 
       <ng-template modelType="ARRAY" let-context="context" let-index="index">
 
