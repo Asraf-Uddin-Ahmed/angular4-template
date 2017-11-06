@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
-import { DynamicFormsBootstrapUIModule } from '@ng-dynamic-forms/ui-bootstrap';
+import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
+import { NgbDatepickerModule, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -25,8 +26,10 @@ import { DynamicBootstrapFormComponent } from './components/dynamic-bootstrap-fo
   ],
   imports: [
     BrowserModule,
+    NgbDatepickerModule.forRoot(),
+    NgbTimepickerModule.forRoot(),
     DynamicFormsCoreModule.forRoot(),
-    DynamicFormsBootstrapUIModule,
+    DynamicFormsNGBootstrapUIModule,
     ReactiveFormsModule,
     AppRoutingModule
   ],

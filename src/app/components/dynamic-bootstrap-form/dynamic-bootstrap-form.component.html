@@ -4,7 +4,7 @@
 
   <form class="form-horizontal" [formGroup]="formGroup" (ngSubmit)="submitForm()">
 
-    <dynamic-bootstrap-form [model]="dynamicFormControlModel" [group]="formGroup" (dfBlur)="onBlur($event)" (dfChange)="onChange($event)"
+    <dynamic-ng-bootstrap-form [model]="dynamicFormControlModel" [group]="formGroup" (dfBlur)="onBlur($event)" (dfChange)="onChange($event)"
       (dfFocus)="onFocus($event)">
 
       <ng-template modelType="ARRAY" let-context="context" let-index="index">
@@ -22,7 +22,7 @@
 
       </ng-template>
 
-    </dynamic-bootstrap-form>
+    </dynamic-ng-bootstrap-form>
 
     <div class='pull-right'>
       <button type="submit" class="btn btn-success rounded">Submit</button>

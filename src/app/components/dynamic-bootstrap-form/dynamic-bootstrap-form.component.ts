@@ -53,10 +53,10 @@ export class DynamicBootstrapFormComponent implements OnInit {
 
   private initDynamicFormArray() {
     for (const group in this.formGroup.value) {
-      for (const input in this.formGroup.value[group]) {
-        const formArray = this.formGroup.get(group).get(input) as FormArray;
-        const dynamicFormArrayModel = this.formService.findById(input, this.dynamicFormControlModel) as DynamicFormArrayModel;
-        this.dynamicFormArrayModelHelpers[input] = new DynamicFormArrayModelHelper(this.formService, formArray, dynamicFormArrayModel);
+      const formArray = this.formGroup.get(group) as FormArray;
+      if (formArray instanceof FormArray) {
+        const dynamicFormArrayModel = this.formService.findById(group, this.dynamicFormControlModel) as DynamicFormArrayModel;
+        this.dynamicFormArrayModelHelpers[group] = new DynamicFormArrayModelHelper(this.formService, formArray, dynamicFormArrayModel);
       }
     }
   }
