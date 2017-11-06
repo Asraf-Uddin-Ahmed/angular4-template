@@ -13,12 +13,24 @@ import {
 } from '@ng-dynamic-forms/core';
 
 
+enum JsonValidationType {
+    minLength,
+    maxLength,
+    required,
+    pattern
+}
 enum ValidationType {
-    minlength,
-    maxlength,
+    minLength,
+    maxLength,
     required,
     email,
     pattern
+}
+enum JsonInputType {
+    email,
+    string,
+    object,
+    integer
 }
 enum InputType {
     text,
@@ -28,12 +40,6 @@ enum InputType {
     tel,
     url,
     file
-}
-enum JsonInputType {
-    email,
-    string,
-    object,
-    integer
 }
 
 
@@ -84,10 +90,10 @@ export class JsonToDynamicForm {
 
     private getValidators(json) {
         const validators = {};
-        if (json[ValidationType[ValidationType.required]]) {
+        if (json[JsonValidationType[JsonValidationType.required]]) {
             validators[ValidationType[ValidationType.required]] = null;
         }
-        if (json[ValidationType[ValidationType.pattern]]) {
+        if (json[JsonValidationType[JsonValidationType.pattern]]) {
             validators[ValidationType[ValidationType.pattern]] = json[ValidationType[ValidationType.pattern]];
         }
 
@@ -98,10 +104,10 @@ export class JsonToDynamicForm {
     }
     private getErrorMessages(json) {
         const errorMessages = {};
-        if (json[ValidationType[ValidationType.required]]) {
+        if (json[JsonValidationType[JsonValidationType.required]]) {
             errorMessages[ValidationType[ValidationType.required]] = '{{ label }} is required';
         }
-        if (json[ValidationType[ValidationType.pattern]]) {
+        if (json[JsonValidationType[JsonValidationType.pattern]]) {
             errorMessages[ValidationType[ValidationType.pattern]] = '{{label}} does not match pattern {{validator.requiredPattern}}';
         }
 
