@@ -8,7 +8,9 @@ import {
   DynamicRadioGroupModel,
   DynamicTextAreaModel,
   DynamicFormArrayModel,
-  DynamicFormGroupModel
+  DynamicFormGroupModel,
+  DynamicDatePickerModel,
+  DynamicTimePickerModel
 } from '@ng-dynamic-forms/core';
 import { Observable } from 'rxjs/Observable';
 
@@ -26,25 +28,43 @@ export class HomeComponent implements OnInit {
       id: 'bootstrapFormGroup1',
       legend: 'Form Group 1',
       group: [
-        /*
-        new DynamicDatePickerModel(
-            {
-                id: "bootstrapDatepicker",
-                label: "Datepicker"
+        new DynamicInputModel(
+          {
+            inputType: 'date',
+            id: 'bootstrapDatepicker',
+            label: 'Datepicker'
+          },
+          {
+            element: {
+              container: 'form-group',
+              label: 'control-label'
             },
-            {
-                element: {
-                    container: "form-group",
-                    label: "control-label"
-                },
-                grid: {
-                    control: "col-sm-9",
-                    errors: "col-sm-offset-3 col-sm-9",
-                    label: "col-sm-3"
-                }
+            grid: {
+              control: 'col-sm-9',
+              errors: 'col-sm-offset-3 col-sm-9',
+              label: 'col-sm-3'
             }
+          }
         ),
-        */
+        new DynamicInputModel(
+          {
+            inputType: 'time',
+            id: 'arrivalTime',
+            label: 'Estimated Arrival Time'
+          },
+          {
+            element: {
+              container: 'form-group',
+              label: 'control-label'
+            },
+            grid: {
+              control: 'col-sm-9',
+              errors: 'col-sm-offset-3 col-sm-9',
+              label: 'col-sm-3'
+            }
+          }
+        ),
+
         new DynamicSelectModel<string>(
           {
             id: 'bootstrapSelect',
