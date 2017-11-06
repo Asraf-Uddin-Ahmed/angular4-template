@@ -16,7 +16,8 @@ import {
 enum ValidationType {
     minlength,
     maxlength,
-    required
+    required,
+    email
 }
 enum InputType {
     text,
@@ -26,25 +27,31 @@ enum InputType {
     tel,
     url
 }
+enum JsonInputType {
+    email,
+    string,
+    object,
+    integer
+}
 
 
 export class JsonToDynamicForm {
 
-    private readonly typeToFunction: { [typeName: string]: (json) => DynamicFormControlModel; } = {
-        'string': (json) => this.getInput(json, InputType.text),
-        'email': (json) => this.getInput(json, InputType.email),
-        'object': (json) => this.getInput(json, InputType.url),
-        'integer': (json) => this.getInput(json, InputType.number)
-    };
+    private readonly JSON_INPUT_TYPE_TO_FUNCTION: { [typeName: string]: (json) => DynamicFormControlModel; } = {};
 
-    constructor() { }
+    constructor() {
+        this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.string]] = (json) => this.getInput(json, InputType.text);
+        this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.email]] = (json) => this.getInput(json, InputType.email);
+        this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.integer]] = (json) => this.getInput(json, InputType.number);
+        this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.object]] = (json) => this.getInput(json, InputType.url);
+    }
 
     getDynamicForm(jsonModels: any[]): DynamicFormControlModel[] {
         const dynamicFormControlModels: DynamicFormControlModel[] = [];
         jsonModels.forEach(jsonModel => {
-            jsonModel.type = jsonModel.type ? jsonModel.type : 'string';
+            jsonModel.type = jsonModel.type ? jsonModel.type : JsonInputType[JsonInputType.string];
             console.log(jsonModel);
-            const obj = this.typeToFunction[jsonModel.type](jsonModel);
+            const obj = this.JSON_INPUT_TYPE_TO_FUNCTION[jsonModel.type](jsonModel);
             dynamicFormControlModels.push(obj);
         });
         return dynamicFormControlModels;
@@ -74,12 +81,18 @@ export class JsonToDynamicForm {
         if (json[ValidationType[ValidationType.required]]) {
             validators[ValidationType[ValidationType.required]] = null;
         }
+        if (JsonInputType[JsonInputType.email] === json.type) {
+            validators[ValidationType[ValidationType.email]] = null;
+        }
         return validators;
     }
     private getErrorMessages(json) {
         const errorMessages = {};
         if (json[ValidationType[ValidationType.required]]) {
             errorMessages[ValidationType[ValidationType.required]] = '{{ label }} is required';
+        }
+        if (JsonInputType[JsonInputType.email] === json.type) {
+            errorMessages[ValidationType[ValidationType.email]] = '{{ label }} is not valid';
         }
         return errorMessages;
     }

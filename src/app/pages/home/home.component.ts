@@ -149,63 +149,6 @@ export class HomeComponent implements OnInit {
 
     new DynamicInputModel(
       {
-        id: 'firstName',
-        label: 'First Name',
-        placeholder: 'First Name',
-        validators: {
-          required: null
-        },
-        errorMessages: {
-          required: '{{ label }} is required'
-        }
-      },
-      {
-        element: {
-          label: 'col-form-label'
-        }
-      }
-    ),
-
-    new DynamicInputModel(
-      {
-        id: 'lastName',
-        label: 'Last Name',
-        placeholder: 'Last Name',
-        validators: {
-          required: null
-        },
-        errorMessages: {
-          required: '{{ label }} is required'
-        }
-      },
-      {
-        element: {
-          label: 'col-form-label'
-        }
-      }
-    ),
-
-    new DynamicInputModel(
-      {
-        id: 'email',
-        label: 'E-Mail',
-        placeholder: 'E-Mail',
-        validators: {
-          email: null
-        },
-        errorMessages: {
-          email: '{{ label }} is not valid'
-        }
-      },
-      {
-        element: {
-          label: 'col-form-label'
-        }
-      }
-    ),
-
-    new DynamicInputModel(
-      {
         id: 'phone',
         inputType: 'tel',
         label: 'Phone Number',
