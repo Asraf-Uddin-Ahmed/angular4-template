@@ -1,3 +1,4 @@
+import { JsonToDynamicForm } from './json-to-dynamic-form';
 import { Component, OnInit, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import {
@@ -18,6 +19,7 @@ import { DynamicFormArrayModelHelper } from './dynamic-form-array-model-helper';
 export class DynamicBootstrapFormComponent implements OnInit {
 
   @Input() dynamicFormControlModel: DynamicFormControlModel[];
+  @Input() jsonModels: any[];
 
   @Output() actionSubmit = new EventEmitter();
   @Output() actionCancel = new EventEmitter();
@@ -29,8 +31,12 @@ export class DynamicBootstrapFormComponent implements OnInit {
   constructor(private formService: DynamicFormService) { }
 
   ngOnInit() {
+    const jsonToDynamicForm = new JsonToDynamicForm();
+    this.dynamicFormControlModel = this.jsonModels ? jsonToDynamicForm.getDynamicForm(this.jsonModels) : [];
+    this.dynamicFormControlModel = this.dynamicFormControlModel ? this.dynamicFormControlModel : [];
     this.formGroup = this.formService.createFormGroup(this.dynamicFormControlModel);
     this.initDynamicFormArray();
+    console.log(this.dynamicFormControlModel);
   }
 
   onBlur($event) {

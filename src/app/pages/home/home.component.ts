@@ -21,6 +21,7 @@ import { Observable } from 'rxjs/Observable';
 })
 export class HomeComponent implements OnInit {
 
+  /*
   model = [
 
     new DynamicFormGroupModel(
@@ -496,6 +497,100 @@ export class HomeComponent implements OnInit {
         }
       }
     )
+  ];
+  */
+
+  modelJson = [
+    {
+      'name': 'name',
+      'label': 'Area name.',
+      'required': true,
+      'value': 'Grand Pappy Marina.'
+    },
+    {
+      'name': 'type',
+      'label': 'Area type.',
+      'required': true,
+      'type': 'integer',
+      'value': 1
+    },
+    {
+      'name': 'timeZoneRef',
+      'label': 'Area time zone.',
+      'required': true,
+      'value': 'US-Pacific.'
+    },
+    {
+      'name': 'officePhone',
+      'label': 'Office Phone number.',
+      'required': true,
+      'value': '+123456789.'
+    },
+    {
+      'name': 'officeEmail',
+      'label': 'Office email address.',
+      'required': true,
+      'type': 'email',
+      'value': 'office@konnectedtechnology.com.'
+    },
+    {
+      'name': 'numberOfSlots',
+      'label': 'Office email address.',
+      'type': 'integer',
+      'value': 100
+    },
+    {
+      'name': 'numberOfGates',
+      'label': 'Area gates count.',
+      'type': 'integer',
+      'value': 5
+    },
+    {
+      'name': 'numberOfRepeaters',
+      'label': 'Area repeaters count.',
+      'type': 'integer',
+      'value': 0
+    },
+    {
+      'name': 'numberOfGateways',
+      'label': 'Area gateways count.',
+      'type': 'integer',
+      'value': 0
+    },
+    {
+      'name': 'numberOfSections',
+      'label': 'Office email address',
+      'type': 'integer',
+      'value': 0
+    },
+    {
+      'name': 'address',
+      'label': 'Address',
+      'required': true,
+      'type': 'object',
+      'form': {
+        'value': [
+          {
+            'name': 'cityRef',
+            'label': 'City referance',
+            'required': true,
+            'value': '544-900ABT'
+          },
+          {
+            'name': 'street',
+            'label': 'Street Address',
+            'required': true,
+            'value': '1234 Street'
+          },
+          {
+            'name': 'zip',
+            'label': 'Zip code',
+            'required': true,
+            'value': '77342'
+          }
+        ]
+      }
+    }
   ];
 
   constructor() { }
