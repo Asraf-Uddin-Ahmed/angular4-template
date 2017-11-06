@@ -25,7 +25,8 @@ enum InputType {
     email,
     color,
     tel,
-    url
+    url,
+    file
 }
 enum JsonInputType {
     email,
@@ -65,6 +66,9 @@ export class JsonToDynamicForm {
                 label: json.label,
                 placeholder: json.label,
                 value: json.value,
+                hint: json.hint,
+                prefix: json.prefix,
+                suffix: json.suffix,
                 validators: this.getValidators(json),
                 errorMessages: this.getErrorMessages(json)
             },

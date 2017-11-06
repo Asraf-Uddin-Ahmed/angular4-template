@@ -147,23 +147,6 @@ export class HomeComponent implements OnInit {
       }
     ),
 
-    new DynamicInputModel(
-      {
-        id: 'phone',
-        inputType: 'tel',
-        label: 'Phone Number',
-        placeholder: 'Phone Number',
-        hint: 'Add your country code first',
-        prefix: '+',
-        validators: {
-          required: null
-        },
-        errorMessages: {
-          required: '{{ label }} is required'
-        }
-      }
-    ),
-
     new DynamicFormGroupModel(
       {
         id: 'addressStreet',
@@ -385,19 +368,6 @@ export class HomeComponent implements OnInit {
         label: 'Personal Note',
         placeholder: 'Personal Note',
         rows: 5
-      },
-      {
-        element: {
-          label: 'col-form-label'
-        }
-      }
-    ),
-
-    new DynamicInputModel(
-      {
-        id: 'attachments',
-        inputType: 'file',
-        label: 'Attachments'
       },
       {
         element: {
