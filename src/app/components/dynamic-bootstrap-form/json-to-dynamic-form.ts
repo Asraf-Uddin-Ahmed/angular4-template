@@ -70,6 +70,7 @@ export class JsonToDynamicForm {
                 hint: json.hint,
                 prefix: json.prefix,
                 suffix: json.suffix,
+                mask: json.mask,
                 validators: this.getValidators(json),
                 errorMessages: this.getErrorMessages(json)
             },

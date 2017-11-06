@@ -437,6 +437,7 @@ export class HomeComponent implements OnInit {
     {
       'name': 'officePhone',
       'label': 'Office Phone number.',
+      'mask': ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
       'required': true,
       'value': '+123456789.'
     },
