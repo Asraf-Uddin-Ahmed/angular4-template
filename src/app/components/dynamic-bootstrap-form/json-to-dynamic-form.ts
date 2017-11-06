@@ -18,15 +18,23 @@ enum ValidationType {
     maxlength,
     required
 }
+enum InputType {
+    text,
+    number,
+    email,
+    color,
+    tel,
+    url
+}
 
 
 export class JsonToDynamicForm {
 
     private readonly typeToFunction: { [typeName: string]: (json) => DynamicFormControlModel; } = {
-        'string': (json) => this.getText(json),
-        'email': (json) => this.getText(json),
-        'object': (json) => this.getText(json),
-        'integer': (json) => this.getText(json)
+        'string': (json) => this.getInput(json, InputType.text),
+        'email': (json) => this.getInput(json, InputType.email),
+        'object': (json) => this.getInput(json, InputType.url),
+        'integer': (json) => this.getInput(json, InputType.number)
     };
 
     constructor() { }
@@ -42,9 +50,10 @@ export class JsonToDynamicForm {
         return dynamicFormControlModels;
     }
 
-    private getText(json): DynamicInputModel {
+    private getInput(json: any, inputType: InputType): DynamicInputModel {
         return new DynamicInputModel(
             {
+                inputType: InputType[inputType],
                 id: json.name,
                 label: json.label,
                 placeholder: json.label,
