@@ -12,13 +12,21 @@ import {
     DynamicFormControlModel
 } from '@ng-dynamic-forms/core';
 
+
+enum ValidationType {
+    minlength,
+    maxlength,
+    required
+}
+
+
 export class JsonToDynamicForm {
 
     private readonly typeToFunction: { [typeName: string]: (json) => DynamicFormControlModel; } = {
-        'string': this.getText,
-        'email': this.getText,
-        'object': this.getText,
-        'integer': this.getText
+        'string': (json) => this.getText(json),
+        'email': (json) => this.getText(json),
+        'object': (json) => this.getText(json),
+        'integer': (json) => this.getText(json)
     };
 
     constructor() { }
@@ -28,7 +36,8 @@ export class JsonToDynamicForm {
         jsonModels.forEach(jsonModel => {
             jsonModel.type = jsonModel.type ? jsonModel.type : 'string';
             console.log(jsonModel);
-            dynamicFormControlModels.push(this.typeToFunction[jsonModel.type](jsonModel));
+            const obj = this.typeToFunction[jsonModel.type](jsonModel);
+            dynamicFormControlModels.push(obj);
         });
         return dynamicFormControlModels;
     }
@@ -40,12 +49,8 @@ export class JsonToDynamicForm {
                 label: json.label,
                 placeholder: json.label,
                 value: json.value,
-                validators: {
-                    required: null
-                },
-                errorMessages: {
-                    required: '{{ label }} is required'
-                }
+                validators: this.getValidators(json),
+                errorMessages: this.getErrorMessages(json)
             },
             {
                 element: {
@@ -53,5 +58,20 @@ export class JsonToDynamicForm {
                 }
             }
         );
+    }
+
+    private getValidators(json) {
+        const validators = {};
+        if (json[ValidationType[ValidationType.required]]) {
+            validators[ValidationType[ValidationType.required]] = null;
+        }
+        return validators;
+    }
+    private getErrorMessages(json) {
+        const errorMessages = {};
+        if (json[ValidationType[ValidationType.required]]) {
+            errorMessages[ValidationType[ValidationType.required]] = '{{ label }} is required';
+        }
+        return errorMessages;
     }
 }
