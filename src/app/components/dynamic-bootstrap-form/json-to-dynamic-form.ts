@@ -17,7 +17,8 @@ enum ValidationType {
     minlength,
     maxlength,
     required,
-    email
+    email,
+    pattern
 }
 enum InputType {
     text,
@@ -85,6 +86,10 @@ export class JsonToDynamicForm {
         if (json[ValidationType[ValidationType.required]]) {
             validators[ValidationType[ValidationType.required]] = null;
         }
+        if (json[ValidationType[ValidationType.pattern]]) {
+            validators[ValidationType[ValidationType.pattern]] = json[ValidationType[ValidationType.pattern]];
+        }
+
         if (JsonInputType[JsonInputType.email] === json.type) {
             validators[ValidationType[ValidationType.email]] = null;
         }
@@ -95,6 +100,10 @@ export class JsonToDynamicForm {
         if (json[ValidationType[ValidationType.required]]) {
             errorMessages[ValidationType[ValidationType.required]] = '{{ label }} is required';
         }
+        if (json[ValidationType[ValidationType.pattern]]) {
+            errorMessages[ValidationType[ValidationType.pattern]] = '{{label}} does not match pattern {{validator.requiredPattern}}';
+        }
+
         if (JsonInputType[JsonInputType.email] === json.type) {
             errorMessages[ValidationType[ValidationType.email]] = '{{ label }} is not valid';
         }

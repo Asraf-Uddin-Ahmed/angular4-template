@@ -431,6 +431,7 @@ export class HomeComponent implements OnInit {
       'name': 'timeZoneRef',
       'label': 'Area time zone.',
       'required': true,
+      'pattern': '[a-c]+',
       'value': 'US-Pacific.'
     },
     {
