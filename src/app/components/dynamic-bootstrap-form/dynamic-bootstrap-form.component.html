@@ -12,8 +12,10 @@
         <div class="col-sm-4">
 
           <button type="button" class="btn btn-danger btn-xs rounded" (click)="dynamicFormArrayModelHelpers[context.id].remove(index)">x</button>
-          <button type="button" class="btn btn-default btn-xs rounded" (click)="dynamicFormArrayModelHelpers[context.id].move(index, -1)">&#9650;</button>
-          <button type="button" class="btn btn-default btn-xs rounded" (click)="dynamicFormArrayModelHelpers[context.id].move(index, 1)">&#9660;</button>
+          <button type="button" class="btn btn-default btn-xs rounded" (click)="dynamicFormArrayModelHelpers[context.id].move(index, -1)"
+            [disabled]="index == 0">&#9650;</button>
+          <button type="button" class="btn btn-default btn-xs rounded" (click)="dynamicFormArrayModelHelpers[context.id].move(index, 1)"
+            [disabled]="(index + 1) == dynamicFormArrayModelHelpers[context.id].total()">&#9660;</button>
           <button type="button" class="btn btn-success btn-xs rounded" (click)="dynamicFormArrayModelHelpers[context.id].insert(index + 1)">+</button>
 
         </div>
@@ -26,7 +28,7 @@
       <button type="submit" class="btn btn-success rounded">Submit</button>
       <button type="button" class="btn btn-danger rounded" (click)="cancelForm()">Cancel</button>
     </div>
-    
+
   </form>
 
 </div>

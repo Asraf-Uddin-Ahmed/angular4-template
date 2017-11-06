@@ -1,3 +1,4 @@
+import { element } from 'protractor';
 import { FormArray, FormGroup } from '@angular/forms';
 import { DynamicFormArrayModel, DynamicFormService, DynamicFormControlModel } from '@ng-dynamic-forms/core';
 
@@ -26,5 +27,7 @@ export class DynamicFormArrayModelHelper {
     clear() {
         this.formService.clearFormArray(this.formArray, this.dynamicFormArrayModel);
     }
-
+    total() {
+        return this.dynamicFormArrayModel.size;
+    }
 }
