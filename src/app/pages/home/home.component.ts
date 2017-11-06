@@ -417,6 +417,8 @@ export class HomeComponent implements OnInit {
     {
       'name': 'name',
       'label': 'Area name.',
+      'minLength': 3,
+      'maxLength': 5,
       'required': true,
       'value': 'Grand Pappy Marina.'
     },

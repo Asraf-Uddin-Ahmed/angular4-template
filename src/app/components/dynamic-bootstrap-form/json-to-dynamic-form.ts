@@ -77,6 +77,8 @@ export class JsonToDynamicForm {
                 prefix: json.prefix,
                 suffix: json.suffix,
                 mask: json.mask,
+                minLength: json.minLength,
+                maxLength: json.maxLength,
                 validators: this.getValidators(json),
                 errorMessages: this.getErrorMessages(json)
             },
@@ -94,7 +96,13 @@ export class JsonToDynamicForm {
             validators[ValidationType[ValidationType.required]] = null;
         }
         if (json[JsonValidationType[JsonValidationType.pattern]]) {
-            validators[ValidationType[ValidationType.pattern]] = json[ValidationType[ValidationType.pattern]];
+            validators[ValidationType[ValidationType.pattern]] = json[JsonValidationType[JsonValidationType.pattern]];
+        }
+        if (json[JsonValidationType[JsonValidationType.minLength]]) {
+            validators[ValidationType[ValidationType.minLength]] = json[JsonValidationType[JsonValidationType.minLength]];
+        }
+        if (json[JsonValidationType[JsonValidationType.maxLength]]) {
+            validators[ValidationType[ValidationType.maxLength]] = json[JsonValidationType[JsonValidationType.maxLength]];
         }
 
         if (JsonInputType[JsonInputType.email] === json.type) {
@@ -109,6 +117,14 @@ export class JsonToDynamicForm {
         }
         if (json[JsonValidationType[JsonValidationType.pattern]]) {
             errorMessages[ValidationType[ValidationType.pattern]] = '{{label}} does not match pattern {{validator.requiredPattern}}';
+        }
+        if (json[JsonValidationType[JsonValidationType.minLength]]) {
+            errorMessages[ValidationType[ValidationType.minLength]] =
+                'Minimum length of {{ label }} is ' + json[JsonValidationType[JsonValidationType.minLength]];
+        }
+        if (json[JsonValidationType[JsonValidationType.maxLength]]) {
+            errorMessages[ValidationType[ValidationType.maxLength]] =
+                'Maximum lenght of {{ label }} is ' + json[JsonValidationType[JsonValidationType.maxLength]];
         }
 
         if (JsonInputType[JsonInputType.email] === json.type) {
