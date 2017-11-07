@@ -1,7 +1,18 @@
 import { AbstractControl, FormGroup, ValidationErrors } from '@angular/forms';
 
+export function requireCheckboxGroup(control: AbstractControl): ValidationErrors | null {
+    for (const key in control.value) {
+        if (control.value.hasOwnProperty(key)) {
+            const value = control.value[key];
+            if (value) {
+                return null;
+            }
+        }
+    }
+    return { requireCheckboxGroup: true };
+}
+
 export function requireCheckbox(control: AbstractControl): ValidationErrors | null {
-    console.log(control);
     const hasError = !control.value;
     return hasError ? { requireCheckbox: true } : null;
 }

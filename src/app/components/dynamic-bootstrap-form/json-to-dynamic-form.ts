@@ -11,7 +11,7 @@ import {
     DynamicTimePickerModel,
     DynamicFormControlModel
 } from '@ng-dynamic-forms/core';
-import { validateStartsWithoutAbc, validateUrl, requireCheckbox } from '../../app.validators';
+import { validateStartsWithoutAbc, validateUrl, requireCheckbox, requireCheckboxGroup } from '../../app.validators';
 
 
 enum JsonValidationType {
@@ -33,7 +33,8 @@ enum ValidationType {
     pattern,
     validateStartsWithoutAbc,
     validateUrl,
-    requireCheckbox
+    requireCheckbox,
+    requireCheckboxGroup
 }
 enum JsonInputType {
     email,
@@ -54,7 +55,8 @@ enum InputType {
     url,
     file,
     textArea,
-    checkbox
+    checkbox,
+    checkboxGroup
 }
 
 
@@ -106,6 +108,8 @@ export class JsonToDynamicForm {
             {
                 id: json.name,
                 label: json.label,
+                validator: this.getValidators(json, InputType.checkboxGroup),
+                errorMessages: this.getErrorMessages(json, InputType.checkboxGroup),
                 group: []
             },
             {
@@ -206,6 +210,12 @@ export class JsonToDynamicForm {
                 args: null
             };
         }
+        if (inputType === InputType.checkboxGroup && json[JsonValidationType[JsonValidationType.required]]) {
+            validators[ValidationType[ValidationType.requireCheckboxGroup]] = {
+                name: requireCheckboxGroup.name,
+                args: null
+            };
+        }
 
         if (json[JsonValidationType[JsonValidationType.required]]) {
             validators[ValidationType[ValidationType.required]] = null;
@@ -249,6 +259,9 @@ export class JsonToDynamicForm {
         }
         if (inputType === InputType.checkbox && json[JsonValidationType[JsonValidationType.required]]) {
             errorMessages[ValidationType[ValidationType.requireCheckbox]] = 'You should check {{ label }}';
+        }
+        if (inputType === InputType.checkboxGroup && json[JsonValidationType[JsonValidationType.required]]) {
+            errorMessages[ValidationType[ValidationType.requireCheckboxGroup]] = 'Select minimum one item from {{ label }}';
         }
 
         if (json[JsonValidationType[JsonValidationType.required]]) {
