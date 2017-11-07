@@ -124,6 +124,7 @@ export class JsonToDynamicForm {
             {
                 id: json.name,
                 label: json.label,
+                value: json.value,
                 hint: json.hint
             },
             {

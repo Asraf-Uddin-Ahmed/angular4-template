@@ -409,7 +409,8 @@ export class HomeComponent implements OnInit {
       'name': 'isAgree',
       'label': 'Agree',
       'type': 'checkbox',
-      'hint': 'pls confirm'
+      'hint': 'pls confirm',
+      'value': true
     },
     {
       'name': 'hobbies',
@@ -420,17 +421,20 @@ export class HomeComponent implements OnInit {
         {
           'name': 'reading',
           'label': 'Reading',
-          'type': 'checkbox'
+          'type': 'checkbox',
+          'value': false
         },
         {
           'name': 'writing',
           'label': 'Writing',
-          'type': 'checkbox'
+          'type': 'checkbox',
+          'value': true
         },
         {
           'name': 'walking',
           'label': 'Walking',
-          'type': 'checkbox'
+          'type': 'checkbox',
+          'value': false
         }
       ]
     }
