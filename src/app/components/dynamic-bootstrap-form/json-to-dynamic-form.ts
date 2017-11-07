@@ -57,7 +57,7 @@ export class JsonToDynamicForm {
         this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.email]] = (json) => this.getInput(json, InputType.email);
         this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.integer]] = (json) => this.getInput(json, InputType.number);
         this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.url]] = (json) => this.getInput(json, InputType.url);
-        this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.object]] = (json) => this.getInput(json, InputType.url);
+        this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.object]] = (jsonObject) => this.getFormGroup(jsonObject);
     }
 
     getDynamicForm(jsonModels: any[]): DynamicFormControlModel[] {
@@ -65,10 +65,26 @@ export class JsonToDynamicForm {
         jsonModels.forEach(jsonModel => {
             jsonModel.type = jsonModel.type ? jsonModel.type : JsonInputType[JsonInputType.string];
             console.log(jsonModel);
-            const obj = this.JSON_INPUT_TYPE_TO_FUNCTION[jsonModel.type](jsonModel);
-            dynamicFormControlModels.push(obj);
+            const controlModel = this.JSON_INPUT_TYPE_TO_FUNCTION[jsonModel.type](jsonModel);
+            dynamicFormControlModels.push(controlModel);
         });
         return dynamicFormControlModels;
+    }
+
+
+    private getFormGroup(jsonObject: any): DynamicFormGroupModel {
+        return new DynamicFormGroupModel(
+            {
+                id: jsonObject.name,
+                label: jsonObject.label,
+                group: this.getDynamicForm(jsonObject.form.value)
+            },
+            {
+                element: {
+                    label: 'col-form-label'
+                }
+            }
+        );
     }
 
     private getInput(json: any, inputType: InputType): DynamicInputModel {
@@ -133,6 +149,7 @@ export class JsonToDynamicForm {
 
         return validators;
     }
+
     private getErrorMessages(json: any, inputType: InputType) {
         const errorMessages = {};
 
