@@ -527,4 +527,14 @@ export class HomeComponent implements OnInit {
   cancelForm() {
     console.log('redirect to previous page');
   }
+
+  actionBlur($event) {
+    console.log(`BLUR event on ${$event.model.id}: `, $event);
+  }
+  actionChange($event) {
+    console.log(`CHANGE event on ${$event.model.id}: `, $event);
+  }
+  actionFocus($event) {
+    console.log(`FOCUS event on ${$event.model.id}: `, $event);
+  }
 }

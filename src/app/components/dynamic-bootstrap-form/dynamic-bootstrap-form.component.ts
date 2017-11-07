@@ -21,8 +21,11 @@ export class DynamicBootstrapFormComponent implements OnInit {
   @Input() dynamicFormControlModel: DynamicFormControlModel[];
   @Input() jsonModels: any[];
 
-  @Output() actionSubmit = new EventEmitter();
-  @Output() actionCancel = new EventEmitter();
+  @Output() dbfSubmit = new EventEmitter();
+  @Output() dbfCancel = new EventEmitter();
+  @Output() dbfBlur = new EventEmitter();
+  @Output() dbfChange = new EventEmitter();
+  @Output() dbfFocus = new EventEmitter();
 
   formGroup: FormGroup;
 
@@ -42,20 +45,20 @@ export class DynamicBootstrapFormComponent implements OnInit {
   }
 
   onBlur($event) {
-    console.log(`BLUR event on ${$event.model.id}: `, $event);
+    this.dbfBlur.emit($event);
   }
   onChange($event) {
-    console.log(`CHANGE event on ${$event.model.id}: `, $event);
+    this.dbfChange.emit($event);
   }
   onFocus($event) {
-    console.log(`FOCUS event on ${$event.model.id}: `, $event);
+    this.dbfFocus.emit($event);
   }
 
   submitForm() {
-    this.actionSubmit.emit(this.formGroup);
+    this.dbfSubmit.emit(this.formGroup);
   }
   cancelForm() {
-    this.actionCancel.emit();
+    this.dbfCancel.emit();
   }
 
 
