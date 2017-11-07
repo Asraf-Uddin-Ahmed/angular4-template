@@ -44,7 +44,8 @@ enum JsonInputType {
     url,
     text,
     checkbox,
-    checkboxGroup
+    checkboxGroup,
+    radioGroup
 }
 enum InputType {
     text,
@@ -73,6 +74,7 @@ export class JsonToDynamicForm {
         this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.text]] = (json) => this.getTextArea(json);
         this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.checkbox]] = (json) => this.getCheckbox(json, '');
         this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.checkboxGroup]] = (json) => this.getCheckboxGroup(json);
+        this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.radioGroup]] = (json) => this.getRadioGroup(json);
     }
 
     getDynamicForm(jsonModels: any[]): DynamicFormControlModel[] {
@@ -103,6 +105,25 @@ export class JsonToDynamicForm {
         );
     }
 
+    private getRadioGroup(json: any) {
+        const dynamicRadioGroupModel = new DynamicRadioGroupModel(
+            {
+                id: json.name,
+                label: json.label,
+                // validators: this.getValidators(json, InputType.checkboxGroup),
+                // errorMessages: this.getErrorMessages(json, InputType.checkboxGroup),
+                options: json.options,
+                value: json.selectedOption
+            },
+            {
+                element: {
+                    label: 'col-form-label',
+                    option: 'btn-primary'
+                }
+            }
+        );
+        return dynamicRadioGroupModel;
+    }
     private getCheckboxGroup(json: any): DynamicCheckboxGroupModel {
         const dynamicCheckboxGroupModel = new DynamicCheckboxGroupModel(
             {
@@ -119,7 +140,6 @@ export class JsonToDynamicForm {
             }
         );
         json.array.forEach(jsonCheckbox => {
-            console.log(jsonCheckbox);
             const controlModel = this.getCheckbox(jsonCheckbox, 'btn btn-primary');
             dynamicCheckboxGroupModel.group.push(controlModel);
         });

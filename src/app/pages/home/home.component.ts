@@ -147,70 +147,6 @@ export class HomeComponent implements OnInit {
       }
     ),
 
-    new DynamicCheckboxGroupModel(
-      {
-        id: 'extras',
-        label: 'Extras',
-        group: [
-          new DynamicCheckboxModel(
-            {
-              id: 'extraBreakfast',
-              label: 'Breakfast'
-            },
-            {
-              element: {
-                control: 'btn-primary'
-              }
-            }
-          ),
-          new DynamicCheckboxModel(
-            {
-              id: 'extraTV',
-              label: 'TV',
-            },
-            {
-              element: {
-                control: 'btn-primary'
-              }
-            }
-          ),
-          new DynamicCheckboxModel(
-            {
-              id: 'extraWiFi',
-              label: 'WiFi'
-            },
-            {
-              element: {
-                control: 'btn-primary'
-              }
-            }
-          ),
-          new DynamicCheckboxModel(
-            {
-              id: 'extraParking',
-              label: 'Parking Lot'
-            },
-            {
-              element: {
-                control: 'btn-primary'
-              }
-            }
-          ),
-          new DynamicCheckboxModel(
-            {
-              id: 'extraBalcony',
-              label: 'Balcony'
-            },
-            {
-              element: {
-                control: 'btn-primary'
-              }
-            }
-          )
-        ]
-      }
-    ),
-
     new DynamicRadioGroupModel(
       {
         id: 'payment',
@@ -438,6 +374,27 @@ export class HomeComponent implements OnInit {
           'value': false
         }
       ]
+    },
+    {
+      'name': 'passion',
+      'label': 'Passion',
+      'type': 'radioGroup',
+      'required': true,
+      'options': [
+        {
+          'label': 'Reading',
+          'value': 'read'
+        },
+        {
+          'label': 'Writing',
+          'value': 'write'
+        },
+        {
+          'label': 'Walking',
+          'value': 'walk'
+        }
+      ],
+      'selectedOption': 'walk'
     }
   ];
 
