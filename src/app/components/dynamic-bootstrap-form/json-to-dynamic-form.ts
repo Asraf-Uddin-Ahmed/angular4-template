@@ -40,7 +40,9 @@ enum JsonInputType {
     object,
     integer,
     url,
-    text
+    text,
+    checkbox,
+    checkboxGroup
 }
 enum InputType {
     text,
@@ -65,6 +67,8 @@ export class JsonToDynamicForm {
         this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.url]] = (json) => this.getInput(json, InputType.url);
         this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.object]] = (jsonObject) => this.getFormGroup(jsonObject);
         this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.text]] = (json) => this.getTextArea(json);
+        this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.checkbox]] = (json) => this.getCheckbox(json, '');
+        this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.checkboxGroup]] = (json) => this.getCheckboxGroup(json);
     }
 
     getDynamicForm(jsonModels: any[]): DynamicFormControlModel[] {
@@ -90,6 +94,41 @@ export class JsonToDynamicForm {
                 element: {
                     control: 'jumbotron', // form-row
                     label: 'col-form-label blockquote'
+                }
+            }
+        );
+    }
+
+    private getCheckboxGroup(json: any): DynamicCheckboxGroupModel {
+        const dynamicCheckboxGroupModel = new DynamicCheckboxGroupModel(
+            {
+                id: json.name,
+                label: json.label,
+                group: []
+            },
+            {
+                element: {
+                    label: 'col-form-label'
+                }
+            }
+        );
+        json.array.forEach(jsonCheckbox => {
+            console.log(jsonCheckbox);
+            const controlModel = this.getCheckbox(jsonCheckbox, 'btn btn-primary');
+            dynamicCheckboxGroupModel.group.push(controlModel);
+        });
+        return dynamicCheckboxGroupModel;
+    }
+    private getCheckbox(json: any, controlClass: string): DynamicCheckboxModel {
+        return new DynamicCheckboxModel(
+            {
+                id: json.name,
+                label: json.label,
+                hint: json.hint
+            },
+            {
+                element: {
+                    control: controlClass
                 }
             }
         );

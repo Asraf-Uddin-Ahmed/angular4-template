@@ -256,13 +256,6 @@ export class HomeComponent implements OnInit {
       }
     ),
 
-    new DynamicCheckboxModel(
-      {
-        id: 'confirm',
-        label: 'I confirm the information given above'
-      }
-    ),
-
     new DynamicFormArrayModel(
       {
         id: 'bootstrapFormArray',
@@ -298,7 +291,7 @@ export class HomeComponent implements OnInit {
       'name': 'name',
       'label': 'Area name.',
       'minLength': 3,
-      'maxLength': 5,
+      'maxLength': 50,
       'min': 1,
       'max': 5,
       'required': true,
@@ -313,7 +306,7 @@ export class HomeComponent implements OnInit {
       'type': 'text',
       'required': true,
       'minLength': 3,
-      'maxLength': 10,
+      'maxLength': 100,
       'hint': 'json.hint',
       'value': 'Grand Pappy Marina.'
     },
@@ -331,7 +324,7 @@ export class HomeComponent implements OnInit {
       'label': 'Area time zone.',
       'required': true,
       'pattern': '[a-c]+',
-      'value': 'US-Pacific.'
+      'value': 'abc'
     },
     {
       'name': 'officePhone',
@@ -346,7 +339,7 @@ export class HomeComponent implements OnInit {
       'required': true,
       'type': 'email',
       'startsWithout': 'abc',
-      'value': 'office@konnectedtechnology.com.'
+      'value': 'office@konnectedtechnology.com'
     },
     {
       'name': 'numberOfSlots',
@@ -411,6 +404,35 @@ export class HomeComponent implements OnInit {
           }
         ]
       }
+    },
+    {
+      'name': 'isAgree',
+      'label': 'Agree',
+      'type': 'checkbox',
+      'hint': 'pls confirm'
+    },
+    {
+      'name': 'hobbies',
+      'label': 'Hobbies',
+      'type': 'checkboxGroup',
+      'required': true,
+      'array': [
+        {
+          'name': 'reading',
+          'label': 'Reading',
+          'type': 'checkbox'
+        },
+        {
+          'name': 'writing',
+          'label': 'Writing',
+          'type': 'checkbox'
+        },
+        {
+          'name': 'walking',
+          'label': 'Walking',
+          'type': 'checkbox'
+        }
+      ]
     }
   ];
 
@@ -426,12 +448,12 @@ export class HomeComponent implements OnInit {
   }
 
   actionBlur($event) {
-    console.log(`BLUR event on ${$event.model.id}: `, $event);
+    // console.log(`BLUR event on ${$event.model.id}: `, $event);
   }
   actionChange($event) {
-    console.log(`CHANGE event on ${$event.model.id}: `, $event);
+    // console.log(`CHANGE event on ${$event.model.id}: `, $event);
   }
   actionFocus($event) {
-    console.log(`FOCUS event on ${$event.model.id}: `, $event);
+    // console.log(`FOCUS event on ${$event.model.id}: `, $event);
   }
 }
