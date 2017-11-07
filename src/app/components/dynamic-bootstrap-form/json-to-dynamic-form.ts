@@ -81,7 +81,8 @@ export class JsonToDynamicForm {
             },
             {
                 element: {
-                    label: 'col-form-label'
+                    control: 'jumbotron', // form-row
+                    label: 'col-form-label blockquote'
                 }
             }
         );

@@ -5,7 +5,7 @@ import { DynamicFormArrayModel, DynamicFormService, DynamicFormControlModel } fr
 export class DynamicFormArrayModelHelper {
 
     constructor(
-        private formService: DynamicFormService,
+        private dynamicFormService: DynamicFormService,
         private formArray: FormArray,
         private dynamicFormArrayModel: DynamicFormArrayModel
     ) {
@@ -13,19 +13,19 @@ export class DynamicFormArrayModelHelper {
     }
 
     add() {
-        this.formService.addFormArrayGroup(this.formArray, this.dynamicFormArrayModel);
+        this.dynamicFormService.addFormArrayGroup(this.formArray, this.dynamicFormArrayModel);
     }
     insert(index: number) {
-        this.formService.insertFormArrayGroup(index, this.formArray, this.dynamicFormArrayModel);
+        this.dynamicFormService.insertFormArrayGroup(index, this.formArray, this.dynamicFormArrayModel);
     }
     remove(index: number) {
-        this.formService.removeFormArrayGroup(index, this.formArray, this.dynamicFormArrayModel);
+        this.dynamicFormService.removeFormArrayGroup(index, this.formArray, this.dynamicFormArrayModel);
     }
     move(index: number, step: number) {
-        this.formService.moveFormArrayGroup(index, step, this.formArray, this.dynamicFormArrayModel);
+        this.dynamicFormService.moveFormArrayGroup(index, step, this.formArray, this.dynamicFormArrayModel);
     }
     clear() {
-        this.formService.clearFormArray(this.formArray, this.dynamicFormArrayModel);
+        this.dynamicFormService.clearFormArray(this.formArray, this.dynamicFormArrayModel);
     }
     total() {
         return this.dynamicFormArrayModel.size;

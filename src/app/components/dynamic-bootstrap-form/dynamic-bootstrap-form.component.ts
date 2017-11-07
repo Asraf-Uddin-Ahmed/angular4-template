@@ -30,13 +30,13 @@ export class DynamicBootstrapFormComponent implements OnInit {
   private dynamicFormArrayModelHelpers: { [id: string]: DynamicFormArrayModelHelper; } = {};
 
 
-  constructor(private formService: DynamicFormService) { }
+  constructor(private dynamicFormService: DynamicFormService) { }
 
   ngOnInit() {
     const jsonToDynamicForm = new JsonToDynamicForm();
     this.dynamicFormControlModel = this.jsonModels ? jsonToDynamicForm.getDynamicForm(this.jsonModels) : [];
     this.dynamicFormControlModel = this.dynamicFormControlModel ? this.dynamicFormControlModel : [];
-    this.formGroup = this.formService.createFormGroup(this.dynamicFormControlModel);
+    this.formGroup = this.dynamicFormService.createFormGroup(this.dynamicFormControlModel);
     this.initDynamicFormArray();
     console.log(this.dynamicFormControlModel);
   }
@@ -64,8 +64,9 @@ export class DynamicBootstrapFormComponent implements OnInit {
     for (const group in this.formGroup.value) {
       const formArray = this.formGroup.get(group) as FormArray;
       if (formArray instanceof FormArray) {
-        const dynamicFormArrayModel = this.formService.findById(group, this.dynamicFormControlModel) as DynamicFormArrayModel;
-        this.dynamicFormArrayModelHelpers[group] = new DynamicFormArrayModelHelper(this.formService, formArray, dynamicFormArrayModel);
+        const dynamicFormArrayModel = this.dynamicFormService.findById(group, this.dynamicFormControlModel) as DynamicFormArrayModel;
+        this.dynamicFormArrayModelHelpers[group] =
+          new DynamicFormArrayModelHelper(this.dynamicFormService, formArray, dynamicFormArrayModel);
       }
     }
   }

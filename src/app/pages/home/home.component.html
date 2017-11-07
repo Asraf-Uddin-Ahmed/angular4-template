@@ -2,8 +2,12 @@
 
 <h1>Home Page</h1>
 
-<app-dynamic-bootstrap-form [dynamicFormControlModel]="model" [jsonModels]="modelJson" (actionSubmit)="postForm($event)"
-    (actionCancel)=cancelForm()>
-</app-dynamic-bootstrap-form>
+<div class="overflow-hidden content-margin container-fluid" style="width: 50%;">
+
+    <app-dynamic-bootstrap-form [dynamicFormControlModel]="model" [jsonModels]="modelJson" (actionSubmit)="postForm($event)"
+        (actionCancel)=cancelForm()>
+    </app-dynamic-bootstrap-form>
+
+</div>
 
 <app-footer></app-footer>
