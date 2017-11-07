@@ -237,6 +237,15 @@ export class HomeComponent implements OnInit {
       'value': 'Grand Pappy Marina.'
     },
     {
+      'name': 'password',
+      'label': 'Password',
+      'type': 'password',
+      'minLength': 3,
+      'maxLength': 50,
+      'required': true,
+      'value': 'my pass'
+    },
+    {
       'name': 'description',
       'label': 'Description',
       'type': 'text',

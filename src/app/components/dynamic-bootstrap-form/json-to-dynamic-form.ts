@@ -39,6 +39,7 @@ enum ValidationType {
 enum JsonInputType {
     email,
     string,
+    password,
     object,
     integer,
     url,
@@ -49,6 +50,7 @@ enum JsonInputType {
 }
 enum InputType {
     text,
+    password,
     number,
     email,
     color,
@@ -67,6 +69,7 @@ export class JsonToDynamicForm {
 
     constructor() {
         this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.string]] = (json) => this.getInput(json, InputType.text);
+        this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.password]] = (json) => this.getInput(json, InputType.password);
         this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.email]] = (json) => this.getInput(json, InputType.email);
         this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.integer]] = (json) => this.getInput(json, InputType.number);
         this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.url]] = (json) => this.getInput(json, InputType.url);
