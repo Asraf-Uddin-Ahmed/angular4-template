@@ -11,7 +11,7 @@ import {
     DynamicTimePickerModel,
     DynamicFormControlModel
 } from '@ng-dynamic-forms/core';
-import { validateStartsWithoutAbc } from '../../app.validators';
+import { validateStartsWithoutAbc, validateUrl } from '../../app.validators';
 
 
 enum JsonValidationType {
@@ -27,13 +27,15 @@ enum ValidationType {
     required,
     email,
     pattern,
-    validateStartsWithoutAbc
+    validateStartsWithoutAbc,
+    validateUrl
 }
 enum JsonInputType {
     email,
     string,
     object,
-    integer
+    integer,
+    url
 }
 enum InputType {
     text,
@@ -54,6 +56,7 @@ export class JsonToDynamicForm {
         this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.string]] = (json) => this.getInput(json, InputType.text);
         this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.email]] = (json) => this.getInput(json, InputType.email);
         this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.integer]] = (json) => this.getInput(json, InputType.number);
+        this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.url]] = (json) => this.getInput(json, InputType.url);
         this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.object]] = (json) => this.getInput(json, InputType.url);
     }
 
@@ -99,6 +102,12 @@ export class JsonToDynamicForm {
         if (JsonInputType[JsonInputType.email] === json.type) {
             validators[ValidationType[ValidationType.email]] = null;
         }
+        if (JsonInputType[JsonInputType.url] === json.type) {
+            validators[ValidationType[ValidationType.validateUrl]] = {
+                name: validateUrl.name,
+                args: null
+            };
+        }
 
         if (json[JsonValidationType[JsonValidationType.required]]) {
             validators[ValidationType[ValidationType.required]] = null;
@@ -130,6 +139,9 @@ export class JsonToDynamicForm {
         if (JsonInputType[JsonInputType.email] === json.type) {
             errorMessages[ValidationType[ValidationType.email]] = '{{ label }} is not valid';
         }
+        if (JsonInputType[JsonInputType.url] === json.type) {
+            errorMessages[ValidationType[ValidationType.validateUrl]] = '{{ label }} is not valid';
+        }
 
         if (json[JsonValidationType[JsonValidationType.required]]) {
             errorMessages[ValidationType[ValidationType.required]] = '{{ label }} is required';
@@ -151,6 +163,7 @@ export class JsonToDynamicForm {
 
             errorMessages[ValidationType[ValidationType.validateStartsWithoutAbc]] = '{{label}} cannot start with abc';
         }
+
         return errorMessages;
     }
 }

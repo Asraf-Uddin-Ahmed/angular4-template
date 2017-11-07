@@ -482,6 +482,12 @@ export class HomeComponent implements OnInit {
       'value': 0
     },
     {
+      'name': 'url',
+      'label': 'URL',
+      'type': 'url',
+      'value': ''
+    },
+    {
       'name': 'address',
       'label': 'Address',
       'required': true,
