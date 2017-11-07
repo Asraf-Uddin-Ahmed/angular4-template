@@ -75,78 +75,6 @@ export class HomeComponent implements OnInit {
       }
     ),
 
-    new DynamicFormGroupModel(
-      {
-        id: 'room',
-        group: [
-
-          new DynamicSelectModel(
-            {
-              id: 'roomSize',
-              label: 'Room Size',
-              options: [
-                {
-                  label: 'Single Room',
-                  value: 'single-room'
-                },
-                {
-                  label: 'Double Room',
-                  value: 'double-room'
-                },
-                {
-                  label: 'Business Suite',
-                  value: 'business-suite'
-                },
-                {
-                  label: 'Presidential Suite',
-                  value: 'presidential-suite'
-                },
-                {
-                  label: 'Storeroom',
-                  value: 'storeroom'
-                }
-              ],
-              value: 'single-room'
-            },
-            {
-              element: {
-                label: 'col-form-label'
-              },
-              grid: {
-                host: 'col-sm-6'
-              }
-            }
-          ),
-          new DynamicInputModel(
-            {
-              id: 'roomQuantity',
-              inputType: 'number',
-              label: 'Quantity',
-              placeholder: 'Quantity',
-              hint: 'Maximum: 5',
-              max: 5,
-              min: 0,
-              value: 1
-            },
-            {
-              element: {
-                container: 'text-center',
-                label: 'col-form-label'
-              },
-              grid: {
-                host: 'col-sm-2'
-              }
-            }
-          )
-        ]
-      },
-      {
-        element: {
-          control: 'form-row'
-        }
-      }
-    ),
-
     new DynamicTimePickerModel(
       {
         id: 'arrivalTime',
@@ -392,7 +320,7 @@ export class HomeComponent implements OnInit {
           'value': 'walk'
         }
       ],
-      'selectedOption': ''
+      'selectedOption': 'read'
     }
   ];
 
