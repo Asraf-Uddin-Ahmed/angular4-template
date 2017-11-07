@@ -1,12 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, NG_VALIDATORS } from '@angular/forms';
 
 import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { NgbDatepickerModule, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
+import { customValidator, customDateRangeValidator } from './app.validators';
 
 import { AppComponent } from './app.component';
 import { LandingComponent } from './pages/landing/landing.component';
@@ -33,7 +34,10 @@ import { DynamicBootstrapFormComponent } from './components/dynamic-bootstrap-fo
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    { provide: NG_VALIDATORS, multi: true, useValue: customValidator },
+    { provide: NG_VALIDATORS, multi: true, useValue: customDateRangeValidator }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

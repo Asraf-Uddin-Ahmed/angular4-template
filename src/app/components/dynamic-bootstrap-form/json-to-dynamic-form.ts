@@ -11,6 +11,7 @@ import {
     DynamicTimePickerModel,
     DynamicFormControlModel
 } from '@ng-dynamic-forms/core';
+import { customValidator } from '../../app.validators';
 
 
 enum JsonValidationType {
@@ -24,7 +25,8 @@ enum ValidationType {
     maxLength,
     required,
     email,
-    pattern
+    pattern,
+    customValidator
 }
 enum JsonInputType {
     email,
@@ -108,6 +110,10 @@ export class JsonToDynamicForm {
         if (JsonInputType[JsonInputType.email] === json.type) {
             validators[ValidationType[ValidationType.email]] = null;
         }
+        validators[ValidationType[ValidationType.customValidator]] = {
+            name: customValidator.name,
+            args: null
+        };
         return validators;
     }
     private getErrorMessages(json) {
@@ -130,6 +136,7 @@ export class JsonToDynamicForm {
         if (JsonInputType[JsonInputType.email] === json.type) {
             errorMessages[ValidationType[ValidationType.email]] = '{{ label }} is not valid';
         }
+        errorMessages[ValidationType[ValidationType.customValidator]] = '{{label}} cannot start with abc';
         return errorMessages;
     }
 }

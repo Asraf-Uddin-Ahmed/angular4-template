@@ -58,6 +58,7 @@ export class DynamicBootstrapFormComponent implements OnInit {
 
 
   private initDynamicFormArray() {
+    // tslint:disable-next-line:forin
     for (const group in this.formGroup.value) {
       const formArray = this.formGroup.get(group) as FormArray;
       if (formArray instanceof FormArray) {
