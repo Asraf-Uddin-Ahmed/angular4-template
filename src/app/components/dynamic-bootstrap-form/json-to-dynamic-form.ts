@@ -11,14 +11,15 @@ import {
     DynamicTimePickerModel,
     DynamicFormControlModel
 } from '@ng-dynamic-forms/core';
-import { customValidator } from '../../app.validators';
+import { validateStartsWithoutAbc } from '../../app.validators';
 
 
 enum JsonValidationType {
     minLength,
     maxLength,
     required,
-    pattern
+    pattern,
+    startsWithout
 }
 enum ValidationType {
     minLength,
@@ -26,7 +27,7 @@ enum ValidationType {
     required,
     email,
     pattern,
-    customValidator
+    validateStartsWithoutAbc
 }
 enum JsonInputType {
     email,
@@ -94,6 +95,11 @@ export class JsonToDynamicForm {
 
     private getValidators(json) {
         const validators = {};
+
+        if (JsonInputType[JsonInputType.email] === json.type) {
+            validators[ValidationType[ValidationType.email]] = null;
+        }
+
         if (json[JsonValidationType[JsonValidationType.required]]) {
             validators[ValidationType[ValidationType.required]] = null;
         }
@@ -107,17 +113,24 @@ export class JsonToDynamicForm {
             validators[ValidationType[ValidationType.maxLength]] = json[JsonValidationType[JsonValidationType.maxLength]];
         }
 
-        if (JsonInputType[JsonInputType.email] === json.type) {
-            validators[ValidationType[ValidationType.email]] = null;
+        if (json[JsonValidationType[JsonValidationType.startsWithout]]
+            && json[JsonValidationType[JsonValidationType.startsWithout]] === 'abc') {
+
+            validators[ValidationType[ValidationType.validateStartsWithoutAbc]] = {
+                name: validateStartsWithoutAbc.name,
+                args: null
+            };
         }
-        validators[ValidationType[ValidationType.customValidator]] = {
-            name: customValidator.name,
-            args: null
-        };
+
         return validators;
     }
     private getErrorMessages(json) {
         const errorMessages = {};
+
+        if (JsonInputType[JsonInputType.email] === json.type) {
+            errorMessages[ValidationType[ValidationType.email]] = '{{ label }} is not valid';
+        }
+
         if (json[JsonValidationType[JsonValidationType.required]]) {
             errorMessages[ValidationType[ValidationType.required]] = '{{ label }} is required';
         }
@@ -133,10 +146,11 @@ export class JsonToDynamicForm {
                 'Maximum lenght of {{ label }} is ' + json[JsonValidationType[JsonValidationType.maxLength]];
         }
 
-        if (JsonInputType[JsonInputType.email] === json.type) {
-            errorMessages[ValidationType[ValidationType.email]] = '{{ label }} is not valid';
+        if (json[JsonValidationType[JsonValidationType.startsWithout]]
+            && json[JsonValidationType[JsonValidationType.startsWithout]] === 'abc') {
+
+            errorMessages[ValidationType[ValidationType.validateStartsWithoutAbc]] = '{{label}} cannot start with abc';
         }
-        errorMessages[ValidationType[ValidationType.customValidator]] = '{{label}} cannot start with abc';
         return errorMessages;
     }
 }

@@ -448,6 +448,7 @@ export class HomeComponent implements OnInit {
       'label': 'Office email address.',
       'required': true,
       'type': 'email',
+      'startsWithout': 'abc',
       'value': 'office@konnectedtechnology.com.'
     },
     {

@@ -1,13 +1,13 @@
 import { AbstractControl, FormGroup, ValidationErrors } from '@angular/forms';
 
-export function customValidator(control: AbstractControl): ValidationErrors | null {
+export function validateStartsWithoutAbc(control: AbstractControl): ValidationErrors | null {
     if (typeof control.value !== 'string') {
         return null;
     }
 
     const hasError = control.value ? (control.value as string).startsWith('abc') : false;
 
-    return hasError ? { customValidator: true } : null;
+    return hasError ? { validateStartsWithoutAbc: true } : null;
 }
 
 export function customDateRangeValidator(group: FormGroup): ValidationErrors | null {
