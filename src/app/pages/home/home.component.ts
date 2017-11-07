@@ -147,38 +147,6 @@ export class HomeComponent implements OnInit {
       }
     ),
 
-    new DynamicRadioGroupModel(
-      {
-        id: 'payment',
-        label: 'Payment Method',
-        options: [
-          {
-            label: 'Credit Card',
-            value: 'cc'
-          },
-          {
-            label: 'PayPal',
-            value: 'paypal'
-          },
-          {
-            label: 'Cash',
-            value: 'cash'
-          },
-          {
-            label: 'Bitcoin',
-            value: 'bitcoin'
-          }
-        ],
-        value: 'cc'
-      },
-      {
-        element: {
-          label: 'col-form-label',
-          option: 'btn-primary'
-        }
-      }
-    ),
-
     new DynamicTimePickerModel(
       {
         id: 'arrivalTime',
@@ -363,7 +331,7 @@ export class HomeComponent implements OnInit {
       'label': 'Hobbies',
       'type': 'checkboxGroup',
       'required': true,
-      'array': [
+      'options': [
         {
           'name': 'reading',
           'label': 'Reading',

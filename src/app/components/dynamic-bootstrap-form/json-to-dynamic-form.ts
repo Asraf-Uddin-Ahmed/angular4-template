@@ -142,7 +142,7 @@ export class JsonToDynamicForm {
                 }
             }
         );
-        json.array.forEach(jsonCheckbox => {
+        json.options.forEach(jsonCheckbox => {
             const controlModel = this.getCheckbox(jsonCheckbox, 'btn btn-primary');
             dynamicCheckboxGroupModel.group.push(controlModel);
         });
