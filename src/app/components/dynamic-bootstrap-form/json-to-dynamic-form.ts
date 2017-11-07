@@ -17,6 +17,8 @@ import { validateStartsWithoutAbc, validateUrl } from '../../app.validators';
 enum JsonValidationType {
     minLength,
     maxLength,
+    min,
+    max,
     required,
     pattern,
     startsWithout
@@ -24,6 +26,8 @@ enum JsonValidationType {
 enum ValidationType {
     minLength,
     maxLength,
+    min,
+    max,
     required,
     email,
     pattern,
@@ -127,6 +131,8 @@ export class JsonToDynamicForm {
                 mask: json.mask,
                 minLength: json.minLength,
                 maxLength: json.maxLength,
+                min: json.min,
+                max: json.max,
                 validators: this.getValidators(json, inputType),
                 errorMessages: this.getErrorMessages(json, inputType)
             },
@@ -162,6 +168,12 @@ export class JsonToDynamicForm {
         }
         if (json[JsonValidationType[JsonValidationType.maxLength]]) {
             validators[ValidationType[ValidationType.maxLength]] = json[JsonValidationType[JsonValidationType.maxLength]];
+        }
+        if (json[JsonValidationType[JsonValidationType.min]]) {
+            validators[ValidationType[ValidationType.min]] = json[JsonValidationType[JsonValidationType.min]];
+        }
+        if (json[JsonValidationType[JsonValidationType.max]]) {
+            validators[ValidationType[ValidationType.max]] = json[JsonValidationType[JsonValidationType.max]];
         }
 
         if (json[JsonValidationType[JsonValidationType.startsWithout]]
@@ -199,6 +211,14 @@ export class JsonToDynamicForm {
         if (json[JsonValidationType[JsonValidationType.maxLength]]) {
             errorMessages[ValidationType[ValidationType.maxLength]] =
                 'Maximum lenght of {{ label }} is ' + json[JsonValidationType[JsonValidationType.maxLength]];
+        }
+        if (json[JsonValidationType[JsonValidationType.min]]) {
+            errorMessages[ValidationType[ValidationType.min]] =
+                'Minimum value of {{ label }} is ' + json[JsonValidationType[JsonValidationType.min]];
+        }
+        if (json[JsonValidationType[JsonValidationType.max]]) {
+            errorMessages[ValidationType[ValidationType.max]] =
+                'Maximum value of {{ label }} is ' + json[JsonValidationType[JsonValidationType.max]];
         }
 
         if (json[JsonValidationType[JsonValidationType.startsWithout]]

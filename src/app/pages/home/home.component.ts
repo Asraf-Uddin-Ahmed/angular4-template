@@ -299,6 +299,8 @@ export class HomeComponent implements OnInit {
       'label': 'Area name.',
       'minLength': 3,
       'maxLength': 5,
+      'min': 1,
+      'max': 5,
       'required': true,
       'hint': 'json.hint',
       'prefix': 'json.prefix',
@@ -320,6 +322,8 @@ export class HomeComponent implements OnInit {
       'label': 'Area type.',
       'required': true,
       'type': 'integer',
+      'min': 1,
+      'max': 5,
       'value': 1
     },
     {
