@@ -1,5 +1,11 @@
 import { AbstractControl, FormGroup, ValidationErrors } from '@angular/forms';
 
+export function requireCheckbox(control: AbstractControl): ValidationErrors | null {
+    console.log(control);
+    const hasError = !control.value;
+    return hasError ? { requireCheckbox: true } : null;
+}
+
 export function validateStartsWithoutAbc(control: AbstractControl): ValidationErrors | null {
     const hasError = control.value ? (control.value as string).startsWith('abc') : false;
     return hasError ? { validateStartsWithoutAbc: true } : null;

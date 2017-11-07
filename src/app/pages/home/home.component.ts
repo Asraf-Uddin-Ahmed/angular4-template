@@ -410,7 +410,8 @@ export class HomeComponent implements OnInit {
       'label': 'Agree',
       'type': 'checkbox',
       'hint': 'pls confirm',
-      'value': true
+      'required': true,
+      'value': false
     },
     {
       'name': 'hobbies',

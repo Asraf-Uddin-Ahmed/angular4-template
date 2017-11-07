@@ -7,7 +7,7 @@ import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstr
 import { NgbDatepickerModule, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
-import { validateStartsWithoutAbc, customDateRangeValidator, validateUrl } from './app.validators';
+import { validateStartsWithoutAbc, customDateRangeValidator, validateUrl, requireCheckbox } from './app.validators';
 
 import { AppComponent } from './app.component';
 import { LandingComponent } from './pages/landing/landing.component';
@@ -37,6 +37,7 @@ import { DynamicBootstrapFormComponent } from './components/dynamic-bootstrap-fo
   providers: [
     { provide: NG_VALIDATORS, multi: true, useValue: validateStartsWithoutAbc },
     { provide: NG_VALIDATORS, multi: true, useValue: validateUrl },
+    { provide: NG_VALIDATORS, multi: true, useValue: requireCheckbox },
     { provide: NG_VALIDATORS, multi: true, useValue: customDateRangeValidator }
   ],
   bootstrap: [AppComponent]

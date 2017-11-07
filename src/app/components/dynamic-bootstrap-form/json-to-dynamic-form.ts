@@ -11,7 +11,7 @@ import {
     DynamicTimePickerModel,
     DynamicFormControlModel
 } from '@ng-dynamic-forms/core';
-import { validateStartsWithoutAbc, validateUrl } from '../../app.validators';
+import { validateStartsWithoutAbc, validateUrl, requireCheckbox } from '../../app.validators';
 
 
 enum JsonValidationType {
@@ -32,7 +32,8 @@ enum ValidationType {
     email,
     pattern,
     validateStartsWithoutAbc,
-    validateUrl
+    validateUrl,
+    requireCheckbox
 }
 enum JsonInputType {
     email,
@@ -52,7 +53,8 @@ enum InputType {
     tel,
     url,
     file,
-    textArea
+    textArea,
+    checkbox
 }
 
 
@@ -125,7 +127,9 @@ export class JsonToDynamicForm {
                 id: json.name,
                 label: json.label,
                 value: json.value,
-                hint: json.hint
+                hint: json.hint,
+                validators: this.getValidators(json, InputType.checkbox),
+                errorMessages: this.getErrorMessages(json, InputType.checkbox)
             },
             {
                 element: {
@@ -196,6 +200,12 @@ export class JsonToDynamicForm {
                 args: null
             };
         }
+        if (inputType === InputType.checkbox && json[JsonValidationType[JsonValidationType.required]]) {
+            validators[ValidationType[ValidationType.requireCheckbox]] = {
+                name: requireCheckbox.name,
+                args: null
+            };
+        }
 
         if (json[JsonValidationType[JsonValidationType.required]]) {
             validators[ValidationType[ValidationType.required]] = null;
@@ -236,6 +246,9 @@ export class JsonToDynamicForm {
         }
         if (inputType === InputType.url) {
             errorMessages[ValidationType[ValidationType.validateUrl]] = '{{ label }} is not valid';
+        }
+        if (inputType === InputType.checkbox && json[JsonValidationType[JsonValidationType.required]]) {
+            errorMessages[ValidationType[ValidationType.requireCheckbox]] = 'You should check {{ label }}';
         }
 
         if (json[JsonValidationType[JsonValidationType.required]]) {
