@@ -372,6 +372,27 @@ export class HomeComponent implements OnInit {
         }
       ],
       'selectedOption': 'walk'
+    },
+    {
+      'name': 'job',
+      'label': 'Job',
+      'type': 'select',
+      'required': true,
+      'options': [
+        {
+          'label': 'Reading',
+          'value': 'read'
+        },
+        {
+          'label': 'Writing',
+          'value': 'write'
+        },
+        {
+          'label': 'Walking',
+          'value': 'walk'
+        }
+      ],
+      'selectedOption': ''
     }
   ];
 

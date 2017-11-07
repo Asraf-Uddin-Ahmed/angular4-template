@@ -46,7 +46,8 @@ enum JsonInputType {
     text,
     checkbox,
     checkboxGroup,
-    radioGroup
+    radioGroup,
+    select
 }
 enum InputType {
     text,
@@ -59,7 +60,8 @@ enum InputType {
     file,
     textArea,
     checkbox,
-    checkboxGroup
+    checkboxGroup,
+    select
 }
 
 
@@ -78,6 +80,7 @@ export class JsonToDynamicForm {
         this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.checkbox]] = (json) => this.getCheckbox(json, '');
         this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.checkboxGroup]] = (json) => this.getCheckboxGroup(json);
         this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.radioGroup]] = (json) => this.getRadioGroup(json);
+        this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.select]] = (json) => this.getSelect(json);
     }
 
     getDynamicForm(jsonModels: any[]): DynamicFormControlModel[] {
@@ -108,6 +111,23 @@ export class JsonToDynamicForm {
         );
     }
 
+    private getSelect(json: any) {
+        return new DynamicSelectModel(
+            {
+                id: json.name,
+                label: json.label,
+                validators: this.getValidators(json, InputType.select),
+                errorMessages: this.getErrorMessages(json, InputType.select),
+                options: json.options,
+                value: json.selectedOption
+            },
+            {
+                element: {
+                    label: 'col-form-label'
+                }
+            }
+        );
+    }
     private getRadioGroup(json: any) {
         const dynamicRadioGroupModel = new DynamicRadioGroupModel(
             {
@@ -143,7 +163,7 @@ export class JsonToDynamicForm {
             }
         );
         json.options.forEach(jsonCheckbox => {
-            const controlModel = this.getCheckbox(jsonCheckbox, 'btn btn-primary');
+            const controlModel = this.getCheckbox(jsonCheckbox, 'btn-primary');
             dynamicCheckboxGroupModel.group.push(controlModel);
         });
         return dynamicCheckboxGroupModel;
