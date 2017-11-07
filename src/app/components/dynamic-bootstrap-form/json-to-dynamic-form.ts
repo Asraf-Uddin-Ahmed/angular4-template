@@ -35,7 +35,8 @@ enum JsonInputType {
     string,
     object,
     integer,
-    url
+    url,
+    text
 }
 enum InputType {
     text,
@@ -58,6 +59,7 @@ export class JsonToDynamicForm {
         this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.integer]] = (json) => this.getInput(json, InputType.number);
         this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.url]] = (json) => this.getInput(json, InputType.url);
         this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.object]] = (jsonObject) => this.getFormGroup(jsonObject);
+        this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.text]] = (json) => this.getTextArea(json);
     }
 
     getDynamicForm(jsonModels: any[]): DynamicFormControlModel[] {
@@ -83,6 +85,24 @@ export class JsonToDynamicForm {
                 element: {
                     control: 'jumbotron', // form-row
                     label: 'col-form-label blockquote'
+                }
+            }
+        );
+    }
+
+    private getTextArea(json: any) {
+        return new DynamicTextAreaModel(
+            {
+                id: json.name,
+                label: json.label,
+                placeholder: json.label,
+                value: json.value,
+                hint: json.hint,
+                rows: 5
+            },
+            {
+                element: {
+                    label: 'col-form-label'
                 }
             }
         );

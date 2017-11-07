@@ -147,112 +147,6 @@ export class HomeComponent implements OnInit {
       }
     ),
 
-    new DynamicFormGroupModel(
-      {
-        id: 'addressStreet',
-        group: [
-
-          new DynamicInputModel(
-            {
-              id: 'streetName',
-              label: 'Street Name',
-              placeholder: 'Street Name'
-            },
-            {
-              element: {
-                label: 'col-form-label'
-              },
-              grid: {
-                host: 'col-sm-10'
-              }
-            }
-          ),
-
-          new DynamicInputModel(
-            {
-              id: 'streetNumber',
-              label: 'Street Number',
-              placeholder: 'Number'
-            },
-            {
-              element: {
-                label: 'col-form-label'
-              },
-              grid: {
-                host: 'col-sm-2'
-              }
-            }
-          )
-        ]
-      },
-      {
-        element: {
-          control: 'form-row'
-        }
-      }
-    ),
-
-    new DynamicFormGroupModel(
-      {
-        id: 'addressLocation',
-        group: [
-
-          new DynamicInputModel(
-            {
-              id: 'zipCode',
-              label: 'Zip Code',
-              placeholder: 'ZIP'
-            },
-            {
-              element: {
-                label: 'col-form-label'
-              },
-              grid: {
-                host: 'col-sm-2'
-              }
-            }
-          ),
-
-          new DynamicInputModel(
-            {
-              id: 'state',
-              label: 'State',
-              placeholder: 'State'
-            },
-            {
-              element: {
-                label: 'col-form-label'
-              },
-              grid: {
-                host: 'col-sm-4'
-              }
-            }
-          ),
-
-          new DynamicInputModel(
-            {
-              id: 'city',
-              label: 'City',
-              placeholder: 'City'
-            },
-            {
-              element: {
-                label: 'col-form-label'
-              },
-              grid: {
-                host: 'col-sm-6'
-              }
-            }
-          )
-        ]
-      },
-      {
-        element: {
-          control: 'form-row'
-        }
-      }
-    ),
-
     new DynamicCheckboxGroupModel(
       {
         id: 'extras',
@@ -362,20 +256,6 @@ export class HomeComponent implements OnInit {
       }
     ),
 
-    new DynamicTextAreaModel(
-      {
-        id: 'notes',
-        label: 'Personal Note',
-        placeholder: 'Personal Note',
-        rows: 5
-      },
-      {
-        element: {
-          label: 'col-form-label'
-        }
-      }
-    ),
-
     new DynamicCheckboxModel(
       {
         id: 'confirm',
@@ -420,6 +300,17 @@ export class HomeComponent implements OnInit {
       'minLength': 3,
       'maxLength': 5,
       'required': true,
+      'hint': 'json.hint',
+      'prefix': 'json.prefix',
+      'suffix': 'json.suffix',
+      'value': 'Grand Pappy Marina.'
+    },
+    {
+      'name': 'description',
+      'label': 'Description',
+      'type': 'text',
+      'required': true,
+      'hint': 'json.hint',
       'value': 'Grand Pappy Marina.'
     },
     {
