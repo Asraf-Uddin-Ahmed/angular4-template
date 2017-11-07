@@ -310,6 +310,8 @@ export class HomeComponent implements OnInit {
       'label': 'Description',
       'type': 'text',
       'required': true,
+      'minLength': 3,
+      'maxLength': 10,
       'hint': 'json.hint',
       'value': 'Grand Pappy Marina.'
     },

@@ -45,7 +45,8 @@ enum InputType {
     color,
     tel,
     url,
-    file
+    file,
+    textArea
 }
 
 
@@ -98,7 +99,11 @@ export class JsonToDynamicForm {
                 placeholder: json.label,
                 value: json.value,
                 hint: json.hint,
-                rows: 5
+                minLength: json.minLength,
+                maxLength: json.maxLength,
+                rows: 5,
+                validators: this.getValidators(json, InputType.textArea),
+                errorMessages: this.getErrorMessages(json, InputType.textArea)
             },
             {
                 element: {
