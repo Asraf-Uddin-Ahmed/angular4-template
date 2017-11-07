@@ -85,8 +85,8 @@ export class JsonToDynamicForm {
                 mask: json.mask,
                 minLength: json.minLength,
                 maxLength: json.maxLength,
-                validators: this.getValidators(json),
-                errorMessages: this.getErrorMessages(json)
+                validators: this.getValidators(json, inputType),
+                errorMessages: this.getErrorMessages(json, inputType)
             },
             {
                 element: {
@@ -96,13 +96,13 @@ export class JsonToDynamicForm {
         );
     }
 
-    private getValidators(json) {
+    private getValidators(json: any, inputType: InputType) {
         const validators = {};
 
-        if (JsonInputType[JsonInputType.email] === json.type) {
+        if (inputType === InputType.email) {
             validators[ValidationType[ValidationType.email]] = null;
         }
-        if (JsonInputType[JsonInputType.url] === json.type) {
+        if (inputType === InputType.url) {
             validators[ValidationType[ValidationType.validateUrl]] = {
                 name: validateUrl.name,
                 args: null
@@ -133,13 +133,13 @@ export class JsonToDynamicForm {
 
         return validators;
     }
-    private getErrorMessages(json) {
+    private getErrorMessages(json: any, inputType: InputType) {
         const errorMessages = {};
 
-        if (JsonInputType[JsonInputType.email] === json.type) {
+        if (inputType === InputType.email) {
             errorMessages[ValidationType[ValidationType.email]] = '{{ label }} is not valid';
         }
-        if (JsonInputType[JsonInputType.url] === json.type) {
+        if (inputType === InputType.url) {
             errorMessages[ValidationType[ValidationType.validateUrl]] = '{{ label }} is not valid';
         }
 
