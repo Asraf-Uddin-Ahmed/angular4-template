@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, NG_VALIDATORS } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
 import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
@@ -16,6 +17,9 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { DynamicBootstrapFormComponent } from './components/dynamic-bootstrap-form/dynamic-bootstrap-form.component';
 
+import { HttpService } from './services/http.service';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +31,7 @@ import { DynamicBootstrapFormComponent } from './components/dynamic-bootstrap-fo
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     NgbDatepickerModule.forRoot(),
     NgbTimepickerModule.forRoot(),
     DynamicFormsCoreModule.forRoot(),
@@ -35,6 +40,7 @@ import { DynamicBootstrapFormComponent } from './components/dynamic-bootstrap-fo
     AppRoutingModule
   ],
   providers: [
+    HttpService,
     { provide: NG_VALIDATORS, multi: true, useValue: validateStartsWithoutAbc },
     { provide: NG_VALIDATORS, multi: true, useValue: validateUrl },
     { provide: NG_VALIDATORS, multi: true, useValue: requireCheckbox },

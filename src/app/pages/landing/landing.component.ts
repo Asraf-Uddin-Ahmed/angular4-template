@@ -1,4 +1,6 @@
+import { HttpService } from './../../services/http.service';
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-landing',
@@ -7,7 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LandingComponent implements OnInit {
 
-  constructor() { }
+  constructor(private httpService: HttpService) {
+    this.httpService.get('http://localhost:8000/rooms')
+      .subscribe(data => {
+        console.log(data);
+      }, err => {
+        console.log(err);
+      });
+  }
 
   ngOnInit() {
   }
