@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { NgbDatepickerModule, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { FileUploadModule, FileDropDirective, FileSelectDirective } from 'ng2-file-upload';
 
 import { AppRoutingModule } from './app-routing.module';
 import { validateStartsWithoutAbc, customDateRangeValidator, validateUrl, requireCheckbox, requireCheckboxGroup } from './app.validators';
@@ -37,6 +38,7 @@ import { HttpService } from './services/http.service';
     DynamicFormsCoreModule.forRoot(),
     DynamicFormsNGBootstrapUIModule,
     ReactiveFormsModule,
+    FileUploadModule,
     AppRoutingModule
   ],
   providers: [
