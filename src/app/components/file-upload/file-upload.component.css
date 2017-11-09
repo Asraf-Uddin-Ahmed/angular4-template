@@ -1,0 +1,7 @@
+.my-drop-zone {
+  border: dotted 3px lightgray;
+}
+
+.file-over {
+  border: dotted 3px red;
+}

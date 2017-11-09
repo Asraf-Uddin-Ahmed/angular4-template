@@ -19,6 +19,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { DynamicBootstrapFormComponent } from './components/dynamic-bootstrap-form/dynamic-bootstrap-form.component';
 
 import { HttpService } from './services/http.service';
+import { FileUploadComponent } from './components/file-upload/file-upload.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { HttpService } from './services/http.service';
     HomeComponent,
     HeaderComponent,
     FooterComponent,
-    DynamicBootstrapFormComponent
+    DynamicBootstrapFormComponent,
+    FileUploadComponent
   ],
   imports: [
     BrowserModule,
