@@ -15,6 +15,7 @@ export class FileUploadComponent implements OnInit {
 
   @Input() supportMultiple: boolean;
   @Input() showBottomActionButtons: boolean;
+  @Input() showPreview: boolean;
 
   @Output() onFileOverDropZone = new EventEmitter();
   @Output() afterAddingFile = new EventEmitter();
