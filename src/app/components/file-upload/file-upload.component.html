@@ -16,15 +16,6 @@
   <div class="col-sm-12">
 
     <table class="table table-hover table-condensed" *ngIf="uploader?.queue?.length">
-      <thead>
-        <tr>
-          <th width="50%">Name</th>
-          <th>Size</th>
-          <th>Progress</th>
-          <th>Status</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
       <tbody>
         <tr *ngFor="let item of uploader.queue">
           <td>
@@ -34,13 +25,13 @@
 
           <td nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
 
-          <td>
+          <td width="10%">
             <div class="progress" style="margin-bottom: 0;">
               <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
             </div>
           </td>
 
-          <td class="text-center">
+          <td class="text-center" width="5%">
             <span *ngIf="item.isSuccess">
               <i class="glyphicon glyphicon-ok"></i>
             </span>

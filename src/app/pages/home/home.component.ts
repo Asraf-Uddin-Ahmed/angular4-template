@@ -347,7 +347,7 @@ export class HomeComponent implements OnInit {
 
   afterAddingFile(fileItem) {
     console.log('afterAddingFile => ', fileItem);
-    fileItem.url = 'se_bucket_url';
+    fileItem.url = 's3_bucket_url';
     // for upload instantly after adding file
     //fileItem.upload();
   }
