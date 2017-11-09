@@ -344,4 +344,23 @@ export class HomeComponent implements OnInit {
   actionFocus($event) {
     // console.log(`FOCUS event on ${$event.model.id}: `, $event);
   }
+
+  afterAddingFile(fileItem) {
+    console.log('afterAddingFile => ', fileItem);
+    fileItem.url = 'se_bucket_url';
+    // for upload instantly after adding file
+    //fileItem.upload();
+  }
+  onProgress(fileItemWithProgress) {
+    console.log('progress => ', fileItemWithProgress);
+  }
+  onSuccess(fileItem) {
+    console.log('success => ', fileItem);
+  }
+  onError(fileItem) {
+    console.log('error => ', fileItem);
+  }
+  onFileOverDropZone() {
+    console.log('fileOverDropZone');
+  }
 }
