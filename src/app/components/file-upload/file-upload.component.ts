@@ -11,6 +11,8 @@ import { FileUploader, FileItem } from 'ng2-file-upload';
 })
 export class FileUploadComponent implements OnInit {
 
+  isMultiple = false;
+
   public uploader: FileUploader;
   public hasDropZoneOver = false;
 
@@ -23,7 +25,7 @@ export class FileUploadComponent implements OnInit {
 
   ngOnInit() {
     this.uploader.onAfterAddingFile = (fileItem: FileItem) => {
-      fileItem.url = 'https://spacheck.s3.amazonaws.com/profile_picture/16745e1f-c086-e611-be6d-00266c4ad03f.png?AWSAccessKeyId=AKIAJA2KAUBNLM273EVQ&Expires=1510207674&Signature=6rE25vN7DAT50eY%2F9hyftwUD18o%3D';
+      fileItem.url = 'https://spacheck.s3.amazonaws.com/profile_picture/16745e1f-c086-e611-be6d-00266c4ad03f.png?AWSAccessKeyId=AKIAJA2KAUBNLM273EVQ&Expires=1510217429&Signature=UBqiZE64pYfLo6EKChJgZDswq1I%3D';
       fileItem.headers = [{ name: 'Content-Type', value: fileItem.file.type }];
       fileItem.withCredentials = false;
       console.log(fileItem);
