@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { FileUploader, FileItem } from 'ng2-file-upload';
 
 @Component({
@@ -7,11 +7,19 @@ import { FileUploader, FileItem } from 'ng2-file-upload';
   styleUrls: [
     '../../../assets/libs/bootstrap-3.3.7/css/bootstrap.min.css',
     './file-upload.component.css'
-  ]
+  ],
+  encapsulation: ViewEncapsulation.None
 })
 export class FileUploadComponent implements OnInit {
 
-  isMultiple = false;
+  @Input() supportMultiple: boolean;
+  @Input() showBottomActionButtons: boolean;
+
+  @Output() onFileOverDropZone = new EventEmitter();
+  @Output() afterAddingFile = new EventEmitter();
+  @Output() onProgress = new EventEmitter();
+  @Output() onSuccess = new EventEmitter();
+  @Output() onError = new EventEmitter();
 
   public uploader: FileUploader;
   public hasDropZoneOver = false;
@@ -25,28 +33,30 @@ export class FileUploadComponent implements OnInit {
 
   ngOnInit() {
     this.uploader.onAfterAddingFile = (fileItem: FileItem) => {
-      fileItem.url = 'https://spacheck.s3.amazonaws.com/profile_picture/16745e1f-c086-e611-be6d-00266c4ad03f.png?AWSAccessKeyId=AKIAJA2KAUBNLM273EVQ&Expires=1510217429&Signature=UBqiZE64pYfLo6EKChJgZDswq1I%3D';
       fileItem.headers = [{ name: 'Content-Type', value: fileItem.file.type }];
       fileItem.withCredentials = false;
-      console.log(fileItem);
+      this.afterAddingFile.emit(fileItem);
     };
 
     this.uploader.onSuccessItem = (fileItem: FileItem) => {
-      console.log('success => ', fileItem);
+      this.onSuccess.emit(fileItem);
     };
 
     this.uploader.onErrorItem = (fileItem: FileItem) => {
-      console.log('error => ', fileItem);
+      this.onError.emit(fileItem);
     };
 
     this.uploader.onProgressItem = (fileItem: FileItem, progress: any) => {
-      console.log('progress => ', progress);
+      this.onProgress.emit({
+        fileItem: fileItem,
+        progress: progress
+      });
     };
   }
 
   public fileOverDropZone(e: any): void {
     this.hasDropZoneOver = e;
-    console.log('fileOverDropZone => ', this.hasDropZoneOver);
+    this.onFileOverDropZone.emit();
   }
 
 }

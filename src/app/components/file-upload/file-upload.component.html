@@ -4,12 +4,13 @@
     <label for="uploader-input" ng2FileDrop [ngClass]="{'file-over': hasDropZoneOver}" (fileOver)="fileOverDropZone($event)"
       [uploader]="uploader" class="well my-drop-zone">Select files</label>
 
-    <input id="uploader-input" ng2FileSelect type="file" style="display:none" [uploader]="uploader" [multiple]="isMultiple" />
+    <input id="uploader-input" ng2FileSelect type="file" style="display:none" [uploader]="uploader" [multiple]="supportMultiple"
+    />
 
   </div>
 </div>
 
-<div class="row" *ngIf="isMultiple">
+<div class="row" *ngIf="supportMultiple">
   <div class="col-sm-12">
 
     <table class="table table-hover table-condensed" *ngIf="uploader?.queue?.length">
@@ -69,7 +70,7 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row" *ngIf="showBottomActionButtons">
   <div class="col-sm-12">
     <div>
       Queue progress:
@@ -78,12 +79,12 @@
       </div>
     </div>
     <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
-      <span class="glyphicon glyphicon-upload"></span> {{isMultiple ? 'Upload all' : 'Upload'}}
+      <span class="glyphicon glyphicon-upload"></span> {{supportMultiple ? 'Upload all' : 'Upload'}}
     </button>
     <button type="button" class="btn btn-warning btn-s" (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
-      <span class="glyphicon glyphicon-ban-circle"></span> {{isMultiple ? 'Cancel all' : 'Cancel'}}
+      <span class="glyphicon glyphicon-ban-circle"></span> {{supportMultiple ? 'Cancel all' : 'Cancel'}}
     </button>
-    <button type="button" class="btn btn-danger btn-s" (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length" *ngIf="isMultiple" >
+    <button type="button" class="btn btn-danger btn-s" (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length" *ngIf="supportMultiple">
       <span class="glyphicon glyphicon-trash"></span> Remove all
     </button>
   </div>
