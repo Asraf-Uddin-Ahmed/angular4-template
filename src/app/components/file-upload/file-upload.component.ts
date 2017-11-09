@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { FileUploader, FileItem } from 'ng2-file-upload';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-file-upload',
@@ -23,8 +24,9 @@ export class FileUploadComponent implements OnInit {
 
   public uploader: FileUploader;
   public hasDropZoneOver = false;
+  public filePreviewPath: SafeUrl;
 
-  constructor() {
+  constructor(private sanitizer: DomSanitizer) {
     this.uploader = new FileUploader({
       disableMultipart: true,
       method: 'PUT'
@@ -33,6 +35,8 @@ export class FileUploadComponent implements OnInit {
 
   ngOnInit() {
     this.uploader.onAfterAddingFile = (fileItem: FileItem) => {
+      this.filePreviewPath = this.getPreviewUrl(fileItem);
+
       fileItem.headers = [{ name: 'Content-Type', value: fileItem.file.type }];
       fileItem.withCredentials = false;
       this.afterAddingFile.emit(fileItem);
@@ -59,4 +63,7 @@ export class FileUploadComponent implements OnInit {
     this.onFileOverDropZone.emit();
   }
 
+  public getPreviewUrl(fileItem: FileItem): SafeUrl {
+    return this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(fileItem._file)));
+  }
 }
