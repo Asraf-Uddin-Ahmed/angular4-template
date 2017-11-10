@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { DropdownOption } from '../dropdown/dropdown-option';
 
 @Component({
@@ -13,21 +13,8 @@ import { DropdownOption } from '../dropdown/dropdown-option';
 })
 export class MasterSearchComponent implements OnInit {
 
-  sortKeyOptions: DropdownOption[] = [
-    {
-      label: 'ID',
-      value: 'ID'
-    },
-    {
-      label: 'Name',
-      value: 'name'
-    },
-    {
-      label: 'Descrtiption',
-      value: 'descrtiption'
-    }
-  ];
-  totalItem = 700;
+  @Input() sortKeyOptions: DropdownOption[];
+  @Input() totalItem: number;
 
   private readonly itemsPerPageOptions = [
     {

@@ -10,6 +10,21 @@ import { HttpClient } from '@angular/common/http';
 })
 export class LandingComponent implements OnInit {
 
+  sortKeys = [
+    {
+      label: 'ID',
+      value: 'ID'
+    },
+    {
+      label: 'Name',
+      value: 'name'
+    },
+    {
+      label: 'Descrtiption',
+      value: 'descrtiption'
+    }
+  ];
+
   constructor(private httpService: HttpService) {
 
   }
