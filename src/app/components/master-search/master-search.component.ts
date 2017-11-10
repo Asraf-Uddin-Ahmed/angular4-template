@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
 import { DropdownOption } from '../dropdown/dropdown-option';
 
 @Component({
@@ -15,6 +15,9 @@ export class MasterSearchComponent implements OnInit {
 
   @Input() sortKeyOptions: DropdownOption[];
   @Input() totalItem: number;
+
+  @Output() onChange = new EventEmitter();
+
 
   private readonly itemsPerPageOptions = [
     {
@@ -45,24 +48,34 @@ export class MasterSearchComponent implements OnInit {
   ngOnInit() {
   }
 
+  createSearchObject() {
+    const searchObject = {};
+    this.onChange.emit(searchObject);
+  }
+
   changeSearchText() {
+    this.createSearchObject();
     console.log(this.searchText);
   }
   changePage() {
+    this.createSearchObject();
     console.log(this.currentPage);
   }
   changeItemsPerPage($event) {
     this.itemsPerPage = $event.value;
+    this.createSearchObject();
     console.log(this.itemsPerPage);
   }
   changeSortKey($event) {
     this.sortKey = $event.value;
     this.currentPage = 1;
+    this.createSearchObject();
     console.log(this.sortKey);
   }
   toggleSortOrder() {
     this.isAscendingSort = !this.isAscendingSort;
     this.currentPage = 1;
+    this.createSearchObject();
     console.log(this.isAscendingSort);
   }
 }

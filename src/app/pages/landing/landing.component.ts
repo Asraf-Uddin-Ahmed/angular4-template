@@ -25,11 +25,11 @@ export class LandingComponent implements OnInit {
     }
   ];
 
-  constructor(private httpService: HttpService) {
+  constructor(private httpService: HttpService) { }
 
-  }
+  ngOnInit() { }
 
-  ngOnInit() {
-
+  changeSearch($event) {
+    console.log($event);
   }
 }
