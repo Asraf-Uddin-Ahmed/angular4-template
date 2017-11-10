@@ -7,6 +7,7 @@ import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { NgbDatepickerModule, NgbTimepickerModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FileUploadModule, FileDropDirective, FileSelectDirective } from 'ng2-file-upload';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 import { AppRoutingModule } from './app-routing.module';
 import { validateStartsWithoutAbc, customDateRangeValidator, validateUrl, requireCheckbox, requireCheckboxGroup } from './app.validators';
@@ -47,6 +48,7 @@ import { DropdownComponent } from './components/dropdown/dropdown.component';
     FormsModule,
     ReactiveFormsModule,
     FileUploadModule,
+    AngularFontAwesomeModule,
     AppRoutingModule
   ],
   providers: [

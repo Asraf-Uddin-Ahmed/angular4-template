@@ -10,6 +10,11 @@
 
   <div class="col-3">
     <app-dropdown [options]="sortKeys" [placeholder]="'Sort by'" (onChange)="changeSortKey($event)"></app-dropdown>
+    <button type="button" class="btn btn-outline-secondary btn-sm" (click)="toggleSortOrder()">
+      <fa name="random" *ngIf="isAscendingSort === null"></fa>
+      <fa name="sort-amount-asc" *ngIf="isAscendingSort === true"></fa>
+      <fa name="sort-amount-desc" *ngIf="isAscendingSort === false"></fa>
+    </button>
   </div>
 </div>
 

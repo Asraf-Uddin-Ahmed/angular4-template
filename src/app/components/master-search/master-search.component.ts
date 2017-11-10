@@ -5,6 +5,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   templateUrl: './master-search.component.html',
   styleUrls: [
     '../../../../node_modules/bootstrap/dist/css/bootstrap.min.css',
+    '../../../../node_modules/font-awesome/css/font-awesome.css',
     './master-search.component.css'
   ],
   encapsulation: ViewEncapsulation.None
@@ -47,6 +48,7 @@ export class MasterSearchComponent implements OnInit {
   ];
   searchText = '';
   sortKey = '';
+  isAscendingSort = null;
   currentPage = 1;
   itemsPerPage = 10;
 
@@ -58,16 +60,21 @@ export class MasterSearchComponent implements OnInit {
   changeSearchText() {
     console.log(this.searchText);
   }
-  changeSortKey($event) {
-    this.sortKey = $event.value;
-    this.currentPage = 1;
-    console.log(this.sortKey);
-  }
   changePage() {
     console.log(this.currentPage);
   }
   changeItemsPerPage($event) {
     this.itemsPerPage = $event.value;
     console.log(this.itemsPerPage);
+  }
+  changeSortKey($event) {
+    this.sortKey = $event.value;
+    this.currentPage = 1;
+    console.log(this.sortKey);
+  }
+  toggleSortOrder() {
+    this.isAscendingSort = !this.isAscendingSort;
+    this.currentPage = 1;
+    console.log(this.isAscendingSort);
   }
 }
