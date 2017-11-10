@@ -7,3 +7,8 @@
     <app-dropdown [options]="sortKeys" [placeholder]="'Sort by'" (onChange)="changeSortKey($event)"></app-dropdown>
   </div>
 </div>
+
+<ng-content></ng-content>
+
+<ngb-pagination [collectionSize]="totalItem" [(page)]="currentPage" [pageSize]="itemsPerPage" [ellipses]="true" [maxSize]="3"
+  [rotate]="true" [boundaryLinks]="false" (pageChange)="pageChange()">

@@ -25,14 +25,24 @@ export class MasterSearchComponent implements OnInit {
       value: 'descrtiption'
     }
   ];
-  searchText = '';
+  totalItem = 0;
 
-  constructor() { }
+  searchText = '';
+  currentPage = 1;
+  itemsPerPage = 70;
+
+  constructor() {
+    this.totalItem = 700;
+  }
 
   ngOnInit() {
   }
 
   changeSortKey(sortKey) {
+    this.currentPage = 1;
     console.log(sortKey);
+  }
+  pageChange() {
+    console.log(this.currentPage);
   }
 }
