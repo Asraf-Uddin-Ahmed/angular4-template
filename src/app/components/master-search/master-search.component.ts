@@ -55,6 +55,9 @@ export class MasterSearchComponent implements OnInit {
   ngOnInit() {
   }
 
+  changeSearchText() {
+    console.log(this.searchText);
+  }
   changeSortKey($event) {
     this.sortKey = $event.value;
     this.currentPage = 1;
