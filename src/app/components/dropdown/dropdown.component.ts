@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { DropdownOption } from './dropdown-option';
+import { DropdownModel } from './dropdown-model';
 
 @Component({
   selector: 'app-dropdown',
@@ -9,12 +9,10 @@ import { DropdownOption } from './dropdown-option';
 
 export class DropdownComponent implements OnInit {
 
-  @Input() options: DropdownOption[];
+  @Input() dropdownModel: DropdownModel;
   @Input() placeholder: string;
 
   @Output() onChange = new EventEmitter();
-
-  selectedOptionLabel = '';
 
   constructor() { }
 
@@ -22,7 +20,7 @@ export class DropdownComponent implements OnInit {
   }
 
   changeOption(option) {
-    this.selectedOptionLabel = option.label;
+    this.dropdownModel.selectedOption = option;
     this.onChange.emit(option);
   }
 }

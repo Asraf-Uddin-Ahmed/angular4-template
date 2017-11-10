@@ -4,6 +4,7 @@ import { HttpService } from './../../services/http.service';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { PaginationField } from '../../components/master-search/pagination-field';
+import { DropdownModel } from '../../components/dropdown/dropdown-model';
 
 @Component({
   selector: 'app-landing',
@@ -12,20 +13,26 @@ import { PaginationField } from '../../components/master-search/pagination-field
 })
 export class LandingComponent implements OnInit {
 
-  sortByColumns = [
-    {
-      label: 'ID',
-      value: 'ID'
-    },
-    {
-      label: 'Name',
-      value: 'name'
-    },
-    {
-      label: 'Descrtiption',
-      value: 'descrtiption'
-    }
-  ];
+  sortByColumns: DropdownModel = {
+    options: [
+      {
+        label: 'ID',
+        value: 'ID'
+      },
+      {
+        label: 'Name',
+        value: 'name'
+      },
+      {
+        label: 'Descrtiption',
+        value: 'descrtiption'
+      }
+    ]
+    // , selectedOption: {
+    //   label: 'Name',
+    //   value: 'name'
+    // }
+  };
   searchTextFieldNames = ['description', 'name'];
   paginationFieldNames: PaginationField = new PaginationField();
   sortByFieldNames: SortByField = new SortByField();

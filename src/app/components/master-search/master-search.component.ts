@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
-import { DropdownOption } from '../dropdown/dropdown-option';
 import { PaginationField } from './pagination-field';
 import { SortByField } from './sort-by-field';
+import { DropdownModel } from '../dropdown/dropdown-model';
 
 @Component({
   selector: 'app-master-search',
@@ -15,7 +15,7 @@ import { SortByField } from './sort-by-field';
 })
 export class MasterSearchComponent implements OnInit {
 
-  @Input() sortByColumnOptions: DropdownOption[];
+  @Input() sortByColumnDropdown: DropdownModel;
   @Input() totalItem: number;
   @Input() searchTextFields: string[];
   @Input() paginationFields: PaginationField;
@@ -24,24 +24,30 @@ export class MasterSearchComponent implements OnInit {
   @Output() onChange = new EventEmitter();
 
 
-  readonly itemsPerPageOptions = [
-    {
+  readonly itemsPerPageDropdown: DropdownModel = {
+    options: [
+      {
+        label: '10',
+        value: 10
+      },
+      {
+        label: '25',
+        value: 25
+      },
+      {
+        label: '50',
+        value: 50
+      },
+      {
+        label: '100',
+        value: 100
+      }
+    ],
+    selectedOption: {
       label: '10',
       value: 10
-    },
-    {
-      label: '25',
-      value: 25
-    },
-    {
-      label: '50',
-      value: 50
-    },
-    {
-      label: '100',
-      value: 100
     }
-  ];
+  };
   searchText = '';
   sortByColumn = '';
   isAscendingSort = null;
