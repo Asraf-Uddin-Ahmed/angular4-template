@@ -24,6 +24,8 @@ export class LandingComponent implements OnInit {
       value: 'descrtiption'
     }
   ];
+  searchTextFieldNames = ['description', 'name'];
+
 
   constructor(private httpService: HttpService) { }
 

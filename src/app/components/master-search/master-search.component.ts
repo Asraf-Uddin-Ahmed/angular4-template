@@ -15,6 +15,7 @@ export class MasterSearchComponent implements OnInit {
 
   @Input() sortKeyOptions: DropdownOption[];
   @Input() totalItem: number;
+  @Input() searchTextFields: string[];
 
   @Output() onChange = new EventEmitter();
 
@@ -48,10 +49,6 @@ export class MasterSearchComponent implements OnInit {
   ngOnInit() {
   }
 
-  createSearchObject() {
-    const searchObject = {};
-    this.onChange.emit(searchObject);
-  }
 
   changeSearchText() {
     this.createSearchObject();
@@ -77,5 +74,18 @@ export class MasterSearchComponent implements OnInit {
     this.currentPage = 1;
     this.createSearchObject();
     console.log(this.isAscendingSort);
+  }
+  createSearchObject() {
+    const searchObject = {};
+    this.loadSearchTextFields(searchObject);
+    this.onChange.emit(searchObject);
+  }
+
+
+  private loadSearchTextFields(searchObject) {
+    this.searchTextFields = this.searchTextFields ? this.searchTextFields : [];
+    this.searchTextFields.forEach(fieldName => {
+      searchObject[fieldName] = this.searchText;
+    });
   }
 }
