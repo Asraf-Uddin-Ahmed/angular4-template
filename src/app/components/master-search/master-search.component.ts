@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { DropdownOption } from '../dropdown/dropdown-option';
 
 @Component({
   selector: 'app-master-search',
@@ -12,7 +13,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 })
 export class MasterSearchComponent implements OnInit {
 
-  sortKeys = [
+  sortKeyOptions: DropdownOption[] = [
     {
       label: 'ID',
       value: 'ID'
