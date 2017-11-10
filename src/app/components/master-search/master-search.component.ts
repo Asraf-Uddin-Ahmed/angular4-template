@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
 import { DropdownOption } from '../dropdown/dropdown-option';
+import { PaginationField } from './pagination-field';
 
 @Component({
   selector: 'app-master-search',
@@ -16,6 +17,7 @@ export class MasterSearchComponent implements OnInit {
   @Input() sortKeyOptions: DropdownOption[];
   @Input() totalItem: number;
   @Input() searchTextFields: string[];
+  @Input() paginationFields: PaginationField;
 
   @Output() onChange = new EventEmitter();
 
@@ -77,11 +79,29 @@ export class MasterSearchComponent implements OnInit {
   }
   createSearchObject() {
     const searchObject = {};
+
     this.loadSearchTextFields(searchObject);
+    this.loadPaginationFields(searchObject);
+
     this.onChange.emit(searchObject);
   }
 
 
+  private loadPaginationFields(searchObject) {
+    console.log(this.paginationFields);
+    if (!this.paginationFields) {
+      return;
+    }
+    if (this.paginationFields.pageNumber) {
+      searchObject[this.paginationFields.pageNumber] = this.currentPage;
+    } else if (this.paginationFields.startOffset) {
+      const startOffset = (this.currentPage - 1) * this.itemsPerPage;
+      searchObject[this.paginationFields.startOffset] = startOffset;
+    }
+    if (this.paginationFields.itemsPerPage) {
+      searchObject[this.paginationFields.itemsPerPage] = this.itemsPerPage;
+    }
+  }
   private loadSearchTextFields(searchObject) {
     this.searchTextFields = this.searchTextFields ? this.searchTextFields : [];
     this.searchTextFields.forEach(fieldName => {
