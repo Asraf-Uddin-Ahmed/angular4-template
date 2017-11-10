@@ -3,7 +3,7 @@
     <input class="form-control" type="text" name="search" (keyup)="changeSearchText()" [(ngModel)]="searchText">
   </div>
 
-  <div class="col-2" *ngIf="paginationFields.hasRequiredPaginationFields()">
+  <div class="col-2" *ngIf="paginationFields?.hasRequiredPaginationFields()">
     <label for="itemsPerPage">Items per page</label>
     <app-dropdown id="itemsPerPage" [options]="itemsPerPageOptions" [placeholder]="itemsPerPage" (onChange)="changeItemsPerPage($event)"></app-dropdown>
   </div>
@@ -20,7 +20,7 @@
 
 <ng-content></ng-content>
 
-<div class="row" *ngIf="paginationFields.hasRequiredPaginationFields()">
+<div class="row" *ngIf="paginationFields?.hasRequiredPaginationFields()">
   <div class="col-12">
     <ngb-pagination [collectionSize]="totalItem" [(page)]="currentPage" [pageSize]="itemsPerPage" [ellipses]="true" [maxSize]="3"
       [rotate]="true" [boundaryLinks]="false" (pageChange)="changePage()">

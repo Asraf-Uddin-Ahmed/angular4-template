@@ -22,7 +22,7 @@ export class MasterSearchComponent implements OnInit {
   @Output() onChange = new EventEmitter();
 
 
-  private readonly itemsPerPageOptions = [
+  readonly itemsPerPageOptions = [
     {
       label: '10',
       value: 10
