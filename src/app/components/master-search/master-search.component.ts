@@ -25,24 +25,46 @@ export class MasterSearchComponent implements OnInit {
       value: 'descrtiption'
     }
   ];
-  totalItem = 0;
+  totalItem = 700;
 
+  private readonly itemsPerPageOptions = [
+    {
+      label: '10',
+      value: 10
+    },
+    {
+      label: '25',
+      value: 25
+    },
+    {
+      label: '50',
+      value: 50
+    },
+    {
+      label: '100',
+      value: 100
+    }
+  ];
   searchText = '';
+  sortKey = '';
   currentPage = 1;
-  itemsPerPage = 70;
+  itemsPerPage = 10;
 
-  constructor() {
-    this.totalItem = 700;
-  }
+  constructor() { }
 
   ngOnInit() {
   }
 
-  changeSortKey(sortKey) {
+  changeSortKey($event) {
+    this.sortKey = $event.value;
     this.currentPage = 1;
-    console.log(sortKey);
+    console.log(this.sortKey);
   }
-  pageChange() {
+  changePage() {
     console.log(this.currentPage);
+  }
+  changeItemsPerPage($event) {
+    this.itemsPerPage = $event.value;
+    console.log(this.itemsPerPage);
   }
 }
