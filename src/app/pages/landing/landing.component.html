@@ -1,5 +1,6 @@
 <h1>Landing Page</h1>
 
-<app-master-search [totalItem]="700" [sortKeyOptions]="sortKeys" [searchTextFields]="searchTextFieldNames" [paginationFields]="paginationFieldNames" (onChange)="changeSearch($event)">
+<app-master-search [totalItem]="700" [sortByColumnOptions]="sortByColumns" [searchTextFields]="searchTextFieldNames" [paginationFields]="paginationFieldNames"
+  [sortByFields]="sortByFieldNames" (onChange)="changeSearch($event)">
   hello...
 </app-master-search>

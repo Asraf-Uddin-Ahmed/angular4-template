@@ -8,8 +8,8 @@
     <app-dropdown id="itemsPerPage" [options]="itemsPerPageOptions" [placeholder]="itemsPerPage" (onChange)="changeItemsPerPage($event)"></app-dropdown>
   </div>
 
-  <div class="col-3" *ngIf="sortKeyOptions">
-    <app-dropdown [options]="sortKeyOptions" [placeholder]="'Sort by'" (onChange)="changeSortKey($event)"></app-dropdown>
+  <div class="col-3" *ngIf="sortByColumnOptions">
+    <app-dropdown [options]="sortByColumnOptions" [placeholder]="'Sort by'" (onChange)="changeSortByColumn($event)"></app-dropdown>
     <button type="button" class="btn btn-outline-secondary btn-sm" (click)="toggleSortOrder()">
       <fa name="random" *ngIf="isAscendingSort === null"></fa>
       <fa name="sort-amount-asc" *ngIf="isAscendingSort === true"></fa>

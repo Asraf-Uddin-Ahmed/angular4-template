@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
 import { DropdownOption } from '../dropdown/dropdown-option';
 import { PaginationField } from './pagination-field';
+import { SortByField } from './sort-by-field';
 
 @Component({
   selector: 'app-master-search',
@@ -14,10 +15,11 @@ import { PaginationField } from './pagination-field';
 })
 export class MasterSearchComponent implements OnInit {
 
-  @Input() sortKeyOptions: DropdownOption[];
+  @Input() sortByColumnOptions: DropdownOption[];
   @Input() totalItem: number;
   @Input() searchTextFields: string[];
   @Input() paginationFields: PaginationField;
+  @Input() sortByFields: SortByField;
 
   @Output() onChange = new EventEmitter();
 
@@ -41,7 +43,7 @@ export class MasterSearchComponent implements OnInit {
     }
   ];
   searchText = '';
-  sortKey = '';
+  sortByColumn = '';
   isAscendingSort = null;
   currentPage = 1;
   itemsPerPage = 10;
@@ -65,11 +67,11 @@ export class MasterSearchComponent implements OnInit {
     this.createSearchObject();
     console.log(this.itemsPerPage);
   }
-  changeSortKey($event) {
-    this.sortKey = $event.value;
+  changeSortByColumn($event) {
+    this.sortByColumn = $event.value;
     this.currentPage = 1;
     this.createSearchObject();
-    console.log(this.sortKey);
+    console.log(this.sortByColumn);
   }
   toggleSortOrder() {
     this.isAscendingSort = !this.isAscendingSort;
@@ -82,11 +84,24 @@ export class MasterSearchComponent implements OnInit {
 
     this.loadSearchTextFields(searchObject);
     this.loadPaginationFields(searchObject);
+    this.loadSortFields(searchObject);
 
     this.onChange.emit(searchObject);
   }
 
 
+  private loadSortFields(searchObject) {
+    console.log(this.sortByFields);
+    if (!this.sortByFields) {
+      return;
+    }
+    if (this.sortByFields.sortByColumn && this.sortByColumn) {
+      searchObject[this.sortByFields.sortByColumn] = this.sortByColumn;
+    }
+    if (this.sortByFields.isAscendingSort && this.isAscendingSort !== null) {
+      searchObject[this.sortByFields.isAscendingSort] = this.isAscendingSort;
+    }
+  }
   private loadPaginationFields(searchObject) {
     if (!this.paginationFields) {
       return;
