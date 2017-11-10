@@ -1,0 +1,9 @@
+<div class="row">
+  <div class="col-9">
+    <input class="form-control" type="text" name="search" [(ngModel)]="searchText">
+  </div>
+
+  <div class="col-3">
+    <app-dropdown [options]="sortKeys" [placeholder]="'Sort by'" (onChange)="changeSortKey($event)"></app-dropdown>
+  </div>
+</div>
