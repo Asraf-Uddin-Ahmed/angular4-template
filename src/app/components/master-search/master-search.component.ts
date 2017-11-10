@@ -88,13 +88,13 @@ export class MasterSearchComponent implements OnInit {
 
 
   private loadPaginationFields(searchObject) {
-    console.log(this.paginationFields);
     if (!this.paginationFields) {
       return;
     }
     if (this.paginationFields.pageNumber) {
       searchObject[this.paginationFields.pageNumber] = this.currentPage;
-    } else if (this.paginationFields.startOffset) {
+    }
+    if (this.paginationFields.startOffset) {
       const startOffset = (this.currentPage - 1) * this.itemsPerPage;
       searchObject[this.paginationFields.startOffset] = startOffset;
     }

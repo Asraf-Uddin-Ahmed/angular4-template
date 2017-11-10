@@ -4,7 +4,7 @@ export class PaginationField {
     startOffset: string;
     itemsPerPage: string;
 
-    hasPaginationField() {
+    hasRequiredPaginationFields() {
         return (this.pageNumber || this.startOffset) && this.itemsPerPage;
     }
 }
