@@ -20,6 +20,9 @@ export class DropdownComponent implements OnInit {
   }
 
   changeOption(option) {
+    if (this.dropdownModel.selectedOption === option) {
+      return;
+    }
     this.dropdownModel.selectedOption = option;
     this.onChange.emit(option);
   }
