@@ -106,6 +106,12 @@ export class MasterSearchComponent implements OnInit {
     if (this.sortByFields.isAscendingSort && this.sortByColumnDropdown.isAscendingSort !== undefined) {
       searchObject[this.sortByFields.isAscendingSort] = this.sortByColumnDropdown.isAscendingSort;
     }
+    if (this.sortByFields.queryPattern
+      && this.sortByColumnDropdown.dropdownModel.selectedOption
+      && this.sortByColumnDropdown.isAscendingSort !== undefined) {
+      searchObject[this.sortByFields.queryPattern] = this.sortByColumnDropdown.dropdownModel.selectedOption.value
+        .concat(this.sortByColumnDropdown.isAscendingSort ? ' asc' : ' desc');
+    }
   }
   private loadPaginationFields(searchObject) {
     if (!this.paginationFields) {

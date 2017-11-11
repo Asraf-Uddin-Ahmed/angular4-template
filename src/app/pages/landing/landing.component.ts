@@ -37,14 +37,16 @@ export class LandingComponent implements OnInit {
     // , isAscendingSort: false
   };
   searchTextFieldNames = ['description', 'name'];
+  sortByFieldNames: SortByField = {
+    isAscendingSort: 'sortBy.isAscending',
+    sortByColumn: 'sortBy.fieldName',
+    queryPattern: 'order'
+  };
   paginationFieldNames: PaginationField = new PaginationField();
-  sortByFieldNames: SortByField = new SortByField();
 
   constructor(private httpService: HttpService) {
     this.paginationFieldNames.startOffset = 'pagination.displayStart';
     this.paginationFieldNames.itemsPerPage = 'pagination.displaySize';
-    this.sortByFieldNames.isAscendingSort = 'sortBy.isAscending';
-    this.sortByFieldNames.sortByColumn = 'sortBy.fieldName';
   }
 
   ngOnInit() { }
