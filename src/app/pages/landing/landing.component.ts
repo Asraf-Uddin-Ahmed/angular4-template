@@ -36,13 +36,15 @@ export class LandingComponent implements OnInit {
     }
     // , isAscendingSort: false
   };
-  searchTextFieldNames = ['description', 'name'];
+  searchTextFieldNames = ['searchItem.name', 'searchItem.description'];
   sortByFieldNames: SortByField = {
     isAscendingSort: 'sortBy.isAscending',
     sortByColumn: 'sortBy.fieldName',
     queryPattern: 'order'
   };
   paginationFieldNames: PaginationField = new PaginationField();
+  items = [];
+  total = 0;
 
   constructor(private httpService: HttpService) {
     this.paginationFieldNames.startOffset = 'pagination.displayStart';
@@ -53,5 +55,13 @@ export class LandingComponent implements OnInit {
 
   changeSearch($event) {
     console.log($event);
+    this.httpService.get('http://localhost/data', $event)
+      .subscribe(data => {
+        this.total = data.totalItem;
+        this.items = data.items;
+        console.log(data);
+      }, err => {
+        console.log(err);
+      });
   }
 }
