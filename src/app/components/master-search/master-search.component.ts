@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation, Input, Output, EventEmitter } fro
 import { PaginationField } from './pagination-field';
 import { SortByField } from './sort-by-field';
 import { DropdownModel } from '../dropdown/dropdown-model';
+import { SortDropdownModel } from './sort-dropdown-model';
 
 @Component({
   selector: 'app-master-search',
@@ -15,7 +16,7 @@ import { DropdownModel } from '../dropdown/dropdown-model';
 })
 export class MasterSearchComponent implements OnInit {
 
-  @Input() sortByColumnDropdown: DropdownModel;
+  @Input() sortByColumnDropdown: SortDropdownModel;
   @Input() totalItem: number;
   @Input() searchTextFields: string[];
   @Input() paginationFields: PaginationField;
@@ -49,8 +50,6 @@ export class MasterSearchComponent implements OnInit {
     }
   };
   searchText = '';
-  sortByColumn = '';
-  isAscendingSort = null;
   currentPage = 1;
   itemsPerPage = 10;
 
@@ -74,16 +73,16 @@ export class MasterSearchComponent implements OnInit {
     console.log(this.itemsPerPage);
   }
   changeSortByColumn($event) {
-    this.sortByColumn = $event.value;
+    this.sortByColumnDropdown.dropdownModel.selectedOption = $event;
     this.currentPage = 1;
     this.createSearchObject();
-    console.log(this.sortByColumn);
+    console.log(this.sortByColumnDropdown.dropdownModel.selectedOption);
   }
   toggleSortOrder() {
-    this.isAscendingSort = !this.isAscendingSort;
+    this.sortByColumnDropdown.isAscendingSort = !this.sortByColumnDropdown.isAscendingSort;
     this.currentPage = 1;
     this.createSearchObject();
-    console.log(this.isAscendingSort);
+    console.log(this.sortByColumnDropdown.isAscendingSort);
   }
   createSearchObject() {
     const searchObject = {};
@@ -101,11 +100,11 @@ export class MasterSearchComponent implements OnInit {
     if (!this.sortByFields) {
       return;
     }
-    if (this.sortByFields.sortByColumn && this.sortByColumn) {
-      searchObject[this.sortByFields.sortByColumn] = this.sortByColumn;
+    if (this.sortByFields.sortByColumn && this.sortByColumnDropdown.dropdownModel.selectedOption) {
+      searchObject[this.sortByFields.sortByColumn] = this.sortByColumnDropdown.dropdownModel.selectedOption.value;
     }
-    if (this.sortByFields.isAscendingSort && this.isAscendingSort !== null) {
-      searchObject[this.sortByFields.isAscendingSort] = this.isAscendingSort;
+    if (this.sortByFields.isAscendingSort && this.sortByColumnDropdown.isAscendingSort !== undefined) {
+      searchObject[this.sortByFields.isAscendingSort] = this.sortByColumnDropdown.isAscendingSort;
     }
   }
   private loadPaginationFields(searchObject) {
