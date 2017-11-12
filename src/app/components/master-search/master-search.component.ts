@@ -3,6 +3,7 @@ import { PaginationField } from './pagination-field';
 import { SortByField } from './sort-by-field';
 import { DropdownModel } from '../dropdown/dropdown-model';
 import { SortDropdownModel } from './sort-dropdown-model';
+import { FilterDropdownModel } from './filter-dropdown-model';
 
 @Component({
   selector: 'app-master-search',
@@ -21,6 +22,7 @@ export class MasterSearchComponent implements OnInit {
   @Input() searchTextFields: string[];
   @Input() paginationFields: PaginationField;
   @Input() sortByFields: SortByField;
+  @Input() filterDropdownModels: FilterDropdownModel[];
 
   @Output() onInit = new EventEmitter();
   @Output() onChange = new EventEmitter();
@@ -86,17 +88,29 @@ export class MasterSearchComponent implements OnInit {
     this.emitSearchObject(this.onChange);
     console.log(this.sortByColumnDropdown.isAscendingSort);
   }
+  changeFilterOption($event) {
+    this.emitSearchObject(this.onChange);
+    console.log($event);
+  }
   emitSearchObject(eventEmitter: EventEmitter<object>) {
     const searchObject = {};
 
     this.loadSearchTextFields(searchObject);
     this.loadPaginationFields(searchObject);
     this.loadSortFields(searchObject);
+    this.loadFilterFields(searchObject);
 
     eventEmitter.emit(searchObject);
   }
 
 
+  private loadFilterFields(searchObject) {
+    this.filterDropdownModels.forEach(value => {
+      if (value.dropdownModel.selectedOption) {
+        searchObject[value.fieldName] = value.dropdownModel.selectedOption.value;
+      }
+    });
+  }
   private loadSortFields(searchObject) {
     console.log(this.sortByFields);
     if (!this.sortByFields) {
