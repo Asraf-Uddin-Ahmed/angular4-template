@@ -22,6 +22,7 @@ export class MasterSearchComponent implements OnInit {
   @Input() paginationFields: PaginationField;
   @Input() sortByFields: SortByField;
 
+  @Output() onInit = new EventEmitter();
   @Output() onChange = new EventEmitter();
 
 
@@ -56,42 +57,43 @@ export class MasterSearchComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.emitSearchObject(this.onInit);
   }
 
 
   changeSearchText() {
-    this.createSearchObject();
+    this.emitSearchObject(this.onChange);
     console.log(this.searchText);
   }
   changePage() {
-    this.createSearchObject();
+    this.emitSearchObject(this.onChange);
     console.log(this.currentPage);
   }
   changeItemsPerPage($event) {
     this.itemsPerPage = $event.value;
-    this.createSearchObject();
+    this.emitSearchObject(this.onChange);
     console.log(this.itemsPerPage);
   }
   changeSortByColumn($event) {
     this.sortByColumnDropdown.dropdownModel.selectedOption = $event;
     this.currentPage = 1;
-    this.createSearchObject();
+    this.emitSearchObject(this.onChange);
     console.log(this.sortByColumnDropdown.dropdownModel.selectedOption);
   }
   toggleSortOrder() {
     this.sortByColumnDropdown.isAscendingSort = !this.sortByColumnDropdown.isAscendingSort;
     this.currentPage = 1;
-    this.createSearchObject();
+    this.emitSearchObject(this.onChange);
     console.log(this.sortByColumnDropdown.isAscendingSort);
   }
-  createSearchObject() {
+  emitSearchObject(eventEmitter: EventEmitter<object>) {
     const searchObject = {};
 
     this.loadSearchTextFields(searchObject);
     this.loadPaginationFields(searchObject);
     this.loadSortFields(searchObject);
 
-    this.onChange.emit(searchObject);
+    eventEmitter.emit(searchObject);
   }
 
 

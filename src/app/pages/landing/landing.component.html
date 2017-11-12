@@ -1,7 +1,7 @@
 <h1>Landing Page</h1>
 
 <app-master-search [totalItem]="total" [sortByColumnDropdown]="sortByColumns" [searchTextFields]="searchTextFieldNames" [paginationFields]="paginationFieldNames"
-  [sortByFields]="sortByFieldNames" (onChange)="changeSearch($event)">
+  [sortByFields]="sortByFieldNames" (onInit)="changeSearch($event)" (onChange)="changeSearch($event)">
 
   <table class="table">
     <thead>
