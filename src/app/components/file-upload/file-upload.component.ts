@@ -6,7 +6,8 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
   selector: 'app-file-upload',
   templateUrl: './file-upload.component.html',
   styleUrls: [
-    '../../../assets/libs/bootstrap-3.3.7/css/bootstrap.min.css',
+    '../../../../node_modules/bootstrap/dist/css/bootstrap.min.css',
+    '../../../../node_modules/font-awesome/css/font-awesome.css',
     './file-upload.component.css'
   ],
   encapsulation: ViewEncapsulation.None

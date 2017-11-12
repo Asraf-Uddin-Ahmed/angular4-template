@@ -3,5 +3,13 @@
 }
 
 .file-over {
-  border: dotted 3px red;
+  border: dotted 3px green;
+}
+
+td .btn {
+  font-size: 10px;
+}
+
+ngb-progressbar.progress-all .progress-bar {
+  height: 20px;
 }
