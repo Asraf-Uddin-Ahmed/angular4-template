@@ -65,32 +65,26 @@ export class MasterSearchComponent implements OnInit {
 
   changeSearchText() {
     this.emitSearchObject(this.onChange);
-    console.log(this.searchText);
   }
   changePage() {
     this.emitSearchObject(this.onChange);
-    console.log(this.currentPage);
   }
   changeItemsPerPage($event) {
     this.itemsPerPage = $event.value;
     this.emitSearchObject(this.onChange);
-    console.log(this.itemsPerPage);
   }
   changeSortByColumn($event) {
     this.sortByColumnDropdown.dropdownModel.selectedOption = $event;
     this.currentPage = 1;
     this.emitSearchObject(this.onChange);
-    console.log(this.sortByColumnDropdown.dropdownModel.selectedOption);
   }
   toggleSortOrder() {
     this.sortByColumnDropdown.isAscendingSort = !this.sortByColumnDropdown.isAscendingSort;
     this.currentPage = 1;
     this.emitSearchObject(this.onChange);
-    console.log(this.sortByColumnDropdown.isAscendingSort);
   }
   changeFilterOption($event) {
     this.emitSearchObject(this.onChange);
-    console.log($event);
   }
   emitSearchObject(eventEmitter: EventEmitter<object>) {
     const searchObject = {};
@@ -112,7 +106,6 @@ export class MasterSearchComponent implements OnInit {
     });
   }
   private loadSortFields(searchObject) {
-    console.log(this.sortByFields);
     if (!this.sortByFields) {
       return;
     }

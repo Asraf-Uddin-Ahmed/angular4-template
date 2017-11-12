@@ -22,12 +22,12 @@ export class LandingComponent implements OnInit {
           value: 'ID'
         },
         {
-          label: 'Name',
-          value: 'name'
+          label: 'Update Time',
+          value: 'updateTime'
         },
         {
-          label: 'Descrtiption',
-          value: 'descrtiption'
+          label: 'Description',
+          value: 'description'
         }
       ]
       // , selectedOption: {
@@ -47,6 +47,10 @@ export class LandingComponent implements OnInit {
     {
       dropdownModel: {
         options: [
+          {
+            label: 'all',
+            value: ''
+          },
           {
             label: 'public',
             value: 1
