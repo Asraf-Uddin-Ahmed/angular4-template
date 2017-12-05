@@ -23,6 +23,7 @@ import { DynamicBootstrapFormComponent } from './components/dynamic-bootstrap-fo
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
 import { MasterSearchComponent } from './components/master-search/master-search.component';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
+import { SharedServicesModule } from './services/shared-services.module';
 
 
 @NgModule({
@@ -49,10 +50,10 @@ import { DropdownComponent } from './components/dropdown/dropdown.component';
     ReactiveFormsModule,
     FileUploadModule,
     AngularFontAwesomeModule,
-    AppRoutingModule
+    AppRoutingModule,
+    SharedServicesModule
   ],
   providers: [
-    HttpService,
     { provide: NG_VALIDATORS, multi: true, useValue: validateStartsWithoutAbc },
     { provide: NG_VALIDATORS, multi: true, useValue: validateUrl },
     { provide: NG_VALIDATORS, multi: true, useValue: requireCheckbox },
