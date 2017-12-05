@@ -13,7 +13,7 @@ import { DynamicBootstrapFormComponent } from './dynamic-bootstrap-form/dynamic-
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { MasterSearchComponent } from './master-search/master-search.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
-// import { AlertMessageComponent } from './alert-message/alert-message.component';
+import { AlertMessageComponent } from './alert-message/alert-message.component';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap/alert/alert.module';
 
 @NgModule({
@@ -35,14 +35,14 @@ import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap/alert/alert.module';
     FileUploadComponent,
     MasterSearchComponent,
     DropdownComponent,
-    // AlertMessageComponent
+    AlertMessageComponent
   ],
   exports: [
     DynamicBootstrapFormComponent,
     FileUploadComponent,
     MasterSearchComponent,
     DropdownComponent,
-    // AlertMessageComponent
+    AlertMessageComponent
   ],
   providers: [
     { provide: NG_VALIDATORS, multi: true, useValue: validateStartsWithoutAbc },

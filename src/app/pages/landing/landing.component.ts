@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { PaginationField } from '../../components/master-search/pagination-field';
 import { SortDropdownModel } from '../../components/master-search/sort-dropdown-model';
 import { FilterDropdownModel } from '../../components/master-search/filter-dropdown-model';
+import { AlertMessageService } from '../../services/alert-message.service';
 
 @Component({
   selector: 'app-landing',
@@ -105,7 +106,7 @@ export class LandingComponent implements OnInit {
   items = [];
   total = 0;
 
-  constructor(private httpService: HttpService) {
+  constructor(private httpService: HttpService, private alertMessageService: AlertMessageService) {
     this.paginationFieldNames.startOffset = 'pagination.displayStart';
     this.paginationFieldNames.itemsPerPage = 'pagination.displaySize';
   }
@@ -121,6 +122,7 @@ export class LandingComponent implements OnInit {
         console.log(data);
       }, err => {
         console.log(err);
+        this.alertMessageService.setError('Failed to search');
       });
   }
 }
