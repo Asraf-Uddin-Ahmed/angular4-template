@@ -4,13 +4,9 @@ import { Http, RequestOptions, Headers, URLSearchParams } from '@angular/http';
 @Injectable()
 export class HttpService {
 
-  private readonly requestOptions = new RequestOptions();
+  protected readonly requestOptions = new RequestOptions();
 
-  constructor(private http: Http) {
-    const headers = new Headers();
-    // headers.append('Authorization', btoa('username:password'));
-    this.requestOptions.headers = headers;
-  }
+  constructor(protected http: Http) { }
 
   get(url: string, searchItems?: object) {
     this.loadSearchToRequestOptions(searchItems);
@@ -35,7 +31,7 @@ export class HttpService {
     for (const key in searchItems) {
       if (searchItems.hasOwnProperty(key)) {
         const value = searchItems[key];
-        search.set(key, value);
+        Array.isArray(value) ? value.forEach(elem => search.append(key, elem)) : search.set(key, value);
       }
     }
     this.requestOptions.search = search;
