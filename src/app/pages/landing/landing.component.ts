@@ -1,3 +1,4 @@
+import { SearchByField } from '../../components/master-search/search-by-field';
 import { SortByField } from './../../components/master-search/sort-by-field';
 import { Headers } from '@angular/http';
 import { HttpService } from './../../services/http.service';
@@ -37,7 +38,20 @@ export class LandingComponent implements OnInit {
     }
     // , isAscendingSort: false
   };
-  searchTextFieldNames = ['searchItem.name', 'searchItem.description'];
+  searchByField: SearchByField = {
+    names: ['searchItem.name', 'searchItem.description']
+    // name: 'search',
+    // searchQueries: [
+    //   {
+    //     comparator: 'co',
+    //     fieldName: 'name'
+    //   },
+    //   {
+    //     comparator: 'co',
+    //     fieldName: 'shortName'
+    //   }
+    // ]
+  };
   sortByFieldNames: SortByField = {
     isAscendingSort: 'sortBy.isAscending',
     sortByColumn: 'sortBy.fieldName',

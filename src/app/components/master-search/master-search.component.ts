@@ -4,6 +4,7 @@ import { SortByField } from './sort-by-field';
 import { DropdownModel } from '../dropdown/dropdown-model';
 import { SortDropdownModel } from './sort-dropdown-model';
 import { FilterDropdownModel } from './filter-dropdown-model';
+import { SearchByField } from 'app/components/master-search/search-by-field';
 
 @Component({
   selector: 'app-master-search',
@@ -19,9 +20,9 @@ export class MasterSearchComponent implements OnInit {
 
   @Input() sortByColumnDropdown: SortDropdownModel;
   @Input() totalItem: number;
-  @Input() searchTextFields: string[];
+  @Input() searchByField: SearchByField;
   @Input() paginationFields: PaginationField;
-  @Input() sortByFields: SortByField;
+  @Input() sortByField: SortByField;
   @Input() filterDropdownModels: FilterDropdownModel[];
 
   @Output() onInit = new EventEmitter();
@@ -99,6 +100,7 @@ export class MasterSearchComponent implements OnInit {
 
 
   private loadFilterFields(searchObject) {
+    this.filterDropdownModels = this.filterDropdownModels ? this.filterDropdownModels : [];
     this.filterDropdownModels.forEach(value => {
       if (value.dropdownModel.selectedOption) {
         searchObject[value.fieldName] = value.dropdownModel.selectedOption.value;
@@ -106,19 +108,19 @@ export class MasterSearchComponent implements OnInit {
     });
   }
   private loadSortFields(searchObject) {
-    if (!this.sortByFields) {
+    if (!this.sortByField) {
       return;
     }
-    if (this.sortByFields.sortByColumn && this.sortByColumnDropdown.dropdownModel.selectedOption) {
-      searchObject[this.sortByFields.sortByColumn] = this.sortByColumnDropdown.dropdownModel.selectedOption.value;
+    if (this.sortByField.sortByColumn && this.sortByColumnDropdown.dropdownModel.selectedOption) {
+      searchObject[this.sortByField.sortByColumn] = this.sortByColumnDropdown.dropdownModel.selectedOption.value;
     }
-    if (this.sortByFields.isAscendingSort && this.sortByColumnDropdown.isAscendingSort !== undefined) {
-      searchObject[this.sortByFields.isAscendingSort] = this.sortByColumnDropdown.isAscendingSort;
+    if (this.sortByField.isAscendingSort && this.sortByColumnDropdown.isAscendingSort !== undefined) {
+      searchObject[this.sortByField.isAscendingSort] = this.sortByColumnDropdown.isAscendingSort;
     }
-    if (this.sortByFields.queryPattern
+    if (this.sortByField.queryPattern
       && this.sortByColumnDropdown.dropdownModel.selectedOption
       && this.sortByColumnDropdown.isAscendingSort !== undefined) {
-      searchObject[this.sortByFields.queryPattern] = this.sortByColumnDropdown.dropdownModel.selectedOption.value
+      searchObject[this.sortByField.queryPattern] = this.sortByColumnDropdown.dropdownModel.selectedOption.value
         .concat(this.sortByColumnDropdown.isAscendingSort ? ' asc' : ' desc');
     }
   }
@@ -138,9 +140,20 @@ export class MasterSearchComponent implements OnInit {
     }
   }
   private loadSearchTextFields(searchObject) {
-    this.searchTextFields = this.searchTextFields ? this.searchTextFields : [];
-    this.searchTextFields.forEach(fieldName => {
-      searchObject[fieldName] = this.searchText;
-    });
+    if (!this.searchByField || !this.searchText) {
+      return;
+    }
+    if (this.searchByField.names && this.searchByField.names.length) {
+      this.searchByField.names.forEach(fieldName => {
+        searchObject[fieldName] = this.searchText;
+      });
+    }
+    if (this.searchByField.name) {
+      this.searchByField.searchQueries = this.searchByField.searchQueries ? this.searchByField.searchQueries : [];
+      searchObject[this.searchByField.name] = [];
+      this.searchByField.searchQueries.forEach(searchQuery => {
+        searchObject[this.searchByField.name].push(searchQuery.fieldName + ' ' + searchQuery.comparator + ' ' + this.searchText);
+      });
+    }
   }
 }

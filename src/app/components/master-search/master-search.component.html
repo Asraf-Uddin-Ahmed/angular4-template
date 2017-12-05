@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-7" *ngIf="searchTextFields?.length">
+  <div class="col-7" *ngIf="searchByField?.name || searchByField?.names?.length">
     <input class="form-control" type="text" name="search" (keyup)="changeSearchText()" [(ngModel)]="searchText">
   </div>
 
