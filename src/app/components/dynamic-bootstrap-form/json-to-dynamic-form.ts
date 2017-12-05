@@ -47,7 +47,10 @@ enum JsonInputType {
     checkbox,
     checkboxGroup,
     radioGroup,
-    select
+    select,
+    date,
+    time,
+    datetime
 }
 enum InputType {
     text,
@@ -61,7 +64,10 @@ enum InputType {
     textArea,
     checkbox,
     checkboxGroup,
-    select
+    select,
+    date,
+    time,
+    datetime
 }
 
 
@@ -75,6 +81,10 @@ export class JsonToDynamicForm {
         this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.email]] = (json) => this.getInput(json, InputType.email);
         this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.integer]] = (json) => this.getInput(json, InputType.number);
         this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.url]] = (json) => this.getInput(json, InputType.url);
+        this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.date]] = (json) => this.getInput(json, InputType.date);
+        this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.time]] = (json) => this.getInput(json, InputType.time);
+        this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.datetime]] = (json) => this.getInput(json, InputType.datetime);
+
         this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.object]] = (jsonObject) => this.getFormGroup(jsonObject);
         this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.text]] = (json) => this.getTextArea(json);
         this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.checkbox]] = (json) => this.getCheckbox(json, '');
@@ -87,7 +97,7 @@ export class JsonToDynamicForm {
         const dynamicFormControlModels: DynamicFormControlModel[] = [];
         jsonModels.forEach(jsonModel => {
             jsonModel.type = jsonModel.type ? jsonModel.type : JsonInputType[JsonInputType.string];
-            console.log(jsonModel);
+            // console.log(jsonModel);
             const controlModel = this.JSON_INPUT_TYPE_TO_FUNCTION[jsonModel.type](jsonModel);
             dynamicFormControlModels.push(controlModel);
         });
@@ -211,7 +221,7 @@ export class JsonToDynamicForm {
     private getInput(json: any, inputType: InputType): DynamicInputModel {
         return new DynamicInputModel(
             {
-                inputType: InputType[inputType],
+                inputType: inputType === InputType.datetime ? 'datetime-local' : InputType[inputType],
                 id: json.name,
                 label: json.label,
                 placeholder: json.label,

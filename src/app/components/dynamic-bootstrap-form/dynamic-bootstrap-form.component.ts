@@ -30,7 +30,7 @@ export class DynamicBootstrapFormComponent implements OnInit {
   formGroup: FormGroup;
 
 
-  private dynamicFormArrayModelHelpers: { [id: string]: DynamicFormArrayModelHelper; } = {};
+  public dynamicFormArrayModelHelpers: { [id: string]: DynamicFormArrayModelHelper; } = {};
 
 
   constructor(private dynamicFormService: DynamicFormService) { }

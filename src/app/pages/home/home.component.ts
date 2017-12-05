@@ -120,6 +120,27 @@ export class HomeComponent implements OnInit {
 
   modelJson = [
     {
+      'name': 'date',
+      'label': 'date',
+      'type': 'date',
+      'required': true,
+      'value': '2017-12-21'
+    },
+    {
+      'name': 'time',
+      'label': 'time',
+      'type': 'time',
+      'required': true,
+      'value': '22:07'
+    },
+    {
+      'name': 'datetime',
+      'label': 'datetime',
+      'type': 'datetime',
+      'required': true,
+      'value': '2017-12-29T17:02'
+    },
+    {
       'name': 'name',
       'label': 'Area name.',
       'minLength': 3,
@@ -349,7 +370,7 @@ export class HomeComponent implements OnInit {
     console.log('afterAddingFile => ', fileItem);
     fileItem.url = 's3_bucket_url';
     // for upload instantly after adding file
-    //fileItem.upload();
+    // fileItem.upload();
   }
   onProgress(fileItemWithProgress) {
     console.log('progress => ', fileItemWithProgress);
