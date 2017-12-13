@@ -1,5 +1,5 @@
 import { JsonToDynamicForm } from './json-to-dynamic-form';
-import { Component, OnInit, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
+import { Component, DoCheck, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import {
   DynamicFormService,
@@ -16,10 +16,11 @@ import { DynamicFormArrayModelHelper } from './dynamic-form-array-model-helper';
   styleUrls: ['../../../../node_modules/bootstrap/dist/css/bootstrap.min.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class DynamicBootstrapFormComponent implements OnInit {
+export class DynamicBootstrapFormComponent implements OnInit, DoCheck {
 
   @Input() dynamicFormControlModel: DynamicFormControlModel[];
   @Input() jsonModels: any[];
+  @Input() liveUpdate: boolean;
 
   @Output() dbfSubmit = new EventEmitter();
   @Output() dbfCancel = new EventEmitter();
@@ -29,6 +30,7 @@ export class DynamicBootstrapFormComponent implements OnInit {
 
   formGroup: FormGroup;
 
+  private jsonToDynamicForm: JsonToDynamicForm;
 
   public dynamicFormArrayModelHelpers: { [id: string]: DynamicFormArrayModelHelper; } = {};
 
@@ -36,12 +38,17 @@ export class DynamicBootstrapFormComponent implements OnInit {
   constructor(private dynamicFormService: DynamicFormService) { }
 
   ngOnInit() {
-    const jsonToDynamicForm = new JsonToDynamicForm();
-    this.dynamicFormControlModel = this.jsonModels ? jsonToDynamicForm.getDynamicForm(this.jsonModels) : [];
+    this.jsonToDynamicForm = new JsonToDynamicForm();
+    this.dynamicFormControlModel = this.jsonModels ? this.jsonToDynamicForm.getDynamicForm(this.jsonModels) : [];
     this.dynamicFormControlModel = this.dynamicFormControlModel ? this.dynamicFormControlModel : [];
     this.formGroup = this.dynamicFormService.createFormGroup(this.dynamicFormControlModel);
     this.initDynamicFormArray();
     console.log(this.dynamicFormControlModel);
+  }
+  ngDoCheck() {
+    if (this.liveUpdate) {
+      this.updateFormLayout(this.jsonModels, this.dynamicFormControlModel, this.formGroup);
+    }
   }
 
   onBlur($event) {
@@ -62,6 +69,28 @@ export class DynamicBootstrapFormComponent implements OnInit {
   }
 
 
+  private updateFormLayout(models: any[], controlModels: DynamicFormControlModel[], partialFormGroup: FormGroup) {
+    for (let I = 0; I < controlModels.length; I++) {
+      if (!models[I]) {
+        this.dynamicFormService.removeFormGroupControl(I, partialFormGroup, controlModels);
+      }
+    }
+    for (let I = 0; I < models.length; I++) {
+      if (!controlModels[I]) {
+        this.dynamicFormService.addFormGroupControl(partialFormGroup, controlModels, this.jsonToDynamicForm.getControlModel(models[I]));
+
+      } else if (models[I]['isUpdate']) {
+        this.dynamicFormService.removeFormGroupControl(I, partialFormGroup, controlModels);
+        this.dynamicFormService.insertFormGroupControl(I, partialFormGroup, controlModels,
+          this.jsonToDynamicForm.getControlModel(models[I]));
+        models[I]['isUpdate'] = false;
+
+      } else if (models[I]['type'] === 'object') {
+        this.updateFormLayout(models[I].form.value, controlModels[I]['group'],
+          partialFormGroup.controls[controlModels[I]['name']] as FormGroup);
+      }
+    }
+  }
   private initDynamicFormArray() {
     // tslint:disable-next-line:forin
     for (const group in this.formGroup.value) {
