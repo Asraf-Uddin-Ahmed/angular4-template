@@ -1,15 +1,11 @@
-.my-drop-zone {
+app-file-upload .my-drop-zone {
   border: dotted 3px lightgray;
 }
 
-.file-over {
+app-file-upload .file-over {
   border: dotted 3px green;
 }
 
-td .btn {
+app-file-upload td .btn {
   font-size: 10px;
-}
-
-ngb-progressbar.progress-all .progress-bar {
-  height: 20px;
 }
