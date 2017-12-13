@@ -50,7 +50,8 @@ enum JsonInputType {
     select,
     date,
     time,
-    datetime
+    datetime,
+    hidden
 }
 enum InputType {
     text,
@@ -67,7 +68,8 @@ enum InputType {
     select,
     date,
     time,
-    datetime
+    datetime,
+    hidden
 }
 
 
@@ -84,6 +86,7 @@ export class JsonToDynamicForm {
         this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.date]] = (json) => this.getInput(json, InputType.date);
         this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.time]] = (json) => this.getInput(json, InputType.time);
         this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.datetime]] = (json) => this.getInput(json, InputType.datetime);
+        this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.hidden]] = (json) => this.getInput(json, InputType.hidden);
 
         this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.object]] = (jsonObject) => this.getFormGroup(jsonObject);
         this.JSON_INPUT_TYPE_TO_FUNCTION[JsonInputType[JsonInputType.text]] = (json) => this.getTextArea(json);
@@ -96,14 +99,16 @@ export class JsonToDynamicForm {
     getDynamicForm(jsonModels: any[]): DynamicFormControlModel[] {
         const dynamicFormControlModels: DynamicFormControlModel[] = [];
         jsonModels.forEach(jsonModel => {
-            jsonModel.type = jsonModel.type ? jsonModel.type : JsonInputType[JsonInputType.string];
-            // console.log(jsonModel);
-            const controlModel = this.JSON_INPUT_TYPE_TO_FUNCTION[jsonModel.type](jsonModel);
+            const controlModel = this.getControlModel(jsonModel);
             dynamicFormControlModels.push(controlModel);
         });
         return dynamicFormControlModels;
     }
 
+    getControlModel(jsonModel: any) {
+        jsonModel.type = jsonModel.type ? jsonModel.type : JsonInputType[JsonInputType.string];
+        return this.JSON_INPUT_TYPE_TO_FUNCTION[jsonModel.type](jsonModel);
+    }
 
     private getFormGroup(jsonObject: any): DynamicFormGroupModel {
         return new DynamicFormGroupModel(
@@ -201,7 +206,7 @@ export class JsonToDynamicForm {
             {
                 id: json.name,
                 label: json.label,
-                placeholder: json.label,
+                placeholder: json.placeholder,
                 value: json.value,
                 hint: json.hint,
                 minLength: json.minLength,
@@ -223,8 +228,8 @@ export class JsonToDynamicForm {
             {
                 inputType: inputType === InputType.datetime ? 'datetime-local' : InputType[inputType],
                 id: json.name,
-                label: json.label,
-                placeholder: json.label,
+                label: inputType === InputType.hidden ? null : json.label,
+                placeholder: json.placeholder,
                 value: json.value,
                 hint: json.hint,
                 prefix: json.prefix,
