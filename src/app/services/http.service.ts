@@ -10,19 +10,19 @@ export class HttpService {
 
   get(url: string, searchItems?: object) {
     this.loadSearchToRequestOptions(searchItems);
-    return this.http.get(url, this.requestOptions).map(res => res.json());
+    return this.http.get(url, this.requestOptions).map(res => (res.text() ? res.json() : {}));
   }
 
   post(url: string, data: object) {
-    return this.http.post(url, data, this.requestOptions).map(res => res.json());
+    return this.http.post(url, data, this.requestOptions).map(res => (res.text() ? res.json() : {}));
   }
 
   put(url: string, data: object) {
-    return this.http.put(url, data, this.requestOptions).map(res => res.json());
+    return this.http.put(url, data, this.requestOptions).map(res => (res.text() ? res.json() : {}));
   }
 
   delete(url: string) {
-    return this.http.delete(url, this.requestOptions).map(res => res.json());
+    return this.http.delete(url, this.requestOptions).map(res => (res.text() ? res.json() : {}));
   }
 
 
